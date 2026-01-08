@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react"
 import Link from "next/link"
+import Image from "next/image"
 import { usePathname } from "next/navigation"
 import { motion, AnimatePresence } from "framer-motion"
 import { Menu, X, Phone, ArrowUpRight } from "lucide-react"
@@ -41,18 +42,14 @@ export function Header() {
             {/* Logo */}
             <Link href="/" className="group flex items-center gap-2" prefetch={true}>
               <div className="relative flex items-center">
-                <div
-                  className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300 ${scrolled ? "bg-white" : "bg-white"
-                    }`}
-                >
-                  <span className={`text-xl font-black ${scrolled ? "text-accent" : "text-accent"}`}>A</span>
-                </div>
-                <span
-                  className={`ml-3 text-xl font-bold tracking-tight transition-colors duration-300 ${scrolled ? "text-white" : "text-white"
-                    }`}
-                >
-                  Autosaldo
-                </span>
+                <Image
+                  src="/logo.png"
+                  alt="Autosaldo"
+                  width={180}
+                  height={50}
+                  className="h-10 w-auto object-contain"
+                  priority
+                />
               </div>
             </Link>
 
