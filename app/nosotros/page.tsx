@@ -146,30 +146,28 @@ export default function NosotrosPage() {
         </div>
       </section>
 
-      {/* Mission & Vision Section */}
-      <section className="py-20 md:py-28">
+      {/* Mission, Vision & Expertise Section */}
+      <section className="py-16 md:py-24">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto space-y-20">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
             {/* Mission */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="text-center md:text-left md:flex md:gap-12 items-center"
+              className="bg-white p-8 rounded-3xl border border-gray-100 shadow-sm h-full"
             >
-              <div className="flex-1">
-                <span className="text-brand-red font-medium text-sm tracking-wider uppercase">Nuestra Misión</span>
-                <h2 className="font-serif text-3xl md:text-4xl font-bold text-foreground mt-2 mb-6">
-                  Soluciones rápidas y transparentes
-                </h2>
-                <div className="space-y-4 text-muted-foreground leading-relaxed">
-                  <p>
-                    Brindar soluciones rápidas, seguras y transparentes en la compra y venta de vehículos, especializándonos en vehículos con deuda, ayudando a nuestros clientes a cerrar operaciones sin complicaciones y con respaldo profesional.
-                  </p>
-                  <p>
-                    En Autosaldo priorizamos la claridad, la confianza y la atención personalizada, ofreciendo alternativas como compra inmediata, venta asistida y consignación, siempre alineadas a la realidad del mercado.
-                  </p>
-                </div>
+              <span className="text-brand-red font-medium text-sm tracking-wider uppercase">Nuestra Misión</span>
+              <h2 className="font-serif text-2xl md:text-3xl font-bold text-foreground mt-4 mb-4">
+                Soluciones rápidas
+              </h2>
+              <div className="space-y-4 text-muted-foreground leading-relaxed text-sm md:text-base">
+                <p>
+                  Brindar soluciones rápidas, seguras y transparentes en la compra y venta de vehículos, especializándonos en vehículos con deuda.
+                </p>
+                <p>
+                  En Autosaldo priorizamos la claridad, la confianza y la atención personalizada, ofreciendo alternativas alineadas a la realidad del mercado.
+                </p>
               </div>
             </motion.div>
 
@@ -178,21 +176,20 @@ export default function NosotrosPage() {
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="text-center md:text-left md:flex md:flex-row-reverse md:gap-12 items-center"
+              transition={{ delay: 0.1 }}
+              className="bg-white p-8 rounded-3xl border border-gray-100 shadow-sm h-full"
             >
-              <div className="flex-1">
-                <span className="text-brand-red font-medium text-sm tracking-wider uppercase">Nuestra Visión</span>
-                <h2 className="font-serif text-3xl md:text-4xl font-bold text-foreground mt-2 mb-6">
-                  Referentes nacionales
-                </h2>
-                <div className="space-y-4 text-muted-foreground leading-relaxed">
-                  <p>
-                    Ser una empresa referente a nivel nacional en la compra y venta de vehículos, reconocida por su especialización en casos complejos, rapidez en los procesos y alto nivel de confianza.
-                  </p>
-                  <p>
-                    Buscamos consolidarnos como una marca sólida y profesional, con procesos eficientes y crecimiento sostenible, convirtiéndonos en la primera opción para quienes desean vender su vehículo sin estrés.
-                  </p>
-                </div>
+              <span className="text-brand-red font-medium text-sm tracking-wider uppercase">Nuestra Visión</span>
+              <h2 className="font-serif text-2xl md:text-3xl font-bold text-foreground mt-4 mb-4">
+                Referentes nacionales
+              </h2>
+              <div className="space-y-4 text-muted-foreground leading-relaxed text-sm md:text-base">
+                <p>
+                  Ser una empresa referente a nivel nacional en la compra y venta de vehículos, reconocida por su especialización en casos complejos y alto nivel de confianza.
+                </p>
+                <p>
+                  Buscamos consolidarnos como una marca sólida y profesional, convirtiéndonos en la primera opción para quienes desean vender su vehículo sin estrés.
+                </p>
               </div>
             </motion.div>
 
@@ -201,33 +198,28 @@ export default function NosotrosPage() {
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="bg-secondary/30 rounded-3xl p-8 md:p-12 text-center"
+              transition={{ delay: 0.2 }}
+              className="bg-secondary/30 p-8 rounded-3xl border border-transparent h-full"
             >
-              <h2 className="font-serif text-3xl md:text-4xl font-bold text-foreground mb-6">Nuestro Expertise</h2>
-              <div className="max-w-3xl mx-auto space-y-6 text-muted-foreground">
+              <h2 className="font-serif text-2xl md:text-3xl font-bold text-foreground mb-4">Nuestro Expertise</h2>
+              <div className="space-y-6 text-muted-foreground text-sm md:text-base">
                 <p>
-                  En Autosaldo contamos con más de 8 años de experiencia en el mercado automotriz, operando activamente desde el año 2019.
+                  Más de 8 años de experiencia en el mercado automotriz, operando activamente desde 2019 con más de 200 vehículos gestionados.
                 </p>
-                <div className="bg-background rounded-xl p-6 shadow-sm border border-border inline-block text-left w-full max-w-lg">
-                  <p className="font-semibold text-foreground mb-4">Durante este tiempo hemos participado en la venta y gestión de más de 200 vehículos, incluyendo:</p>
-                  <ul className="space-y-2">
-                    <li className="flex items-center gap-2">
-                      <div className="w-1.5 h-1.5 rounded-full bg-brand-red" />
-                      Vehículos sin deuda
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <div className="w-1.5 h-1.5 rounded-full bg-brand-red" />
-                      Vehículos con crédito vehicular activo
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <div className="w-1.5 h-1.5 rounded-full bg-brand-red" />
-                      Casos con prenda y procesos financieros en curso
-                    </li>
-                  </ul>
-                </div>
-                <p>
-                  Nuestro conocimiento del mercado, de los precios reales y de los procesos notariales y financieros nos permite ofrecer soluciones eficientes, seguras y adaptadas a cada cliente.
-                </p>
+                <ul className="space-y-3">
+                  <li className="flex items-start gap-2">
+                    <div className="w-1.5 h-1.5 rounded-full bg-brand-red mt-2 shrink-0" />
+                    <span>Vehículos sin deuda</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <div className="w-1.5 h-1.5 rounded-full bg-brand-red mt-2 shrink-0" />
+                    <span>Vehículos con crédito vehicular activo</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <div className="w-1.5 h-1.5 rounded-full bg-brand-red mt-2 shrink-0" />
+                    <span>Casos con prenda y procesos financieros</span>
+                  </li>
+                </ul>
               </div>
             </motion.div>
 

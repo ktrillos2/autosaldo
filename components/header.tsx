@@ -107,7 +107,7 @@ export function Header() {
 
             {/* Mobile menu button */}
             <button
-              className={`lg:hidden p-3 rounded-full transition-all duration-300 ${scrolled ? "text-white hover:bg-white/10" : "text-white hover:bg-white/10"
+              className={`lg:hidden p-3 rounded-full transition-all duration-300 ${isOpen ? "text-[#002559]" : scrolled || pathname !== "/" ? "text-[#002559] hover:bg-gray-100" : "text-white hover:bg-white/10"
                 }`}
               onClick={() => setIsOpen(!isOpen)}
               aria-label="Toggle menu"
@@ -126,13 +126,13 @@ export function Header() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-40 lg:hidden bg-accent"
+            className="fixed inset-0 z-40 lg:hidden bg-white"
           >
             <motion.nav
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.1 }}
-              className="h-full flex flex-col justify-center px-8"
+              className="h-full flex flex-col justify-start pt-32 px-8"
             >
               {navLinks.map((link, i) => (
                 <motion.div
@@ -144,7 +144,7 @@ export function Header() {
                   <Link
                     href={link.href}
                     prefetch={true}
-                    className={`block text-4xl md:text-5xl font-semibold py-4 transition-colors ${pathname === link.href ? "text-primary" : "text-white hover:text-primary"
+                    className={`block text-4xl md:text-5xl font-bold py-3 transition-colors ${pathname === link.href ? "text-[#d30826]" : "text-[#002559] hover:text-[#d30826]"
                       }`}
                     onClick={() => setIsOpen(false)}
                   >
@@ -156,10 +156,10 @@ export function Header() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.5 }}
-                className="mt-16 pt-8 border-t border-white/10"
+                className="mt-12 pt-8 border-t border-gray-100"
               >
-                <p className="text-white/50 text-sm mb-3">Contáctanos</p>
-                <Link href="tel:+51937385398" className="text-2xl font-semibold text-white">
+                <p className="text-gray-400 text-sm mb-3">Contáctanos</p>
+                <Link href="tel:+51937385398" className="text-2xl font-semibold text-[#002559]">
                   +51 937 385 398
                 </Link>
               </motion.div>
