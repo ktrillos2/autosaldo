@@ -1,5 +1,6 @@
 import Link from "next/link"
-import { Car, Phone, Mail, MapPin, Instagram, Facebook } from "lucide-react"
+import Image from "next/image"
+import { Phone, Mail, MapPin, Instagram, Facebook } from "lucide-react"
 
 export function Footer() {
   return (
@@ -7,11 +8,14 @@ export function Footer() {
       <div className="container mx-auto px-4 py-12 md:py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           <div>
-            <Link href="/" className="flex items-center gap-2 mb-4">
-              <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
-                <Car className="w-6 h-6 text-primary-foreground" />
-              </div>
-              <span className="font-serif text-xl font-bold">Autosaldo</span>
+            <Link href="/" className="inline-block mb-4">
+              <Image
+                src="/logo.png"
+                alt="Autosaldo"
+                width={180}
+                height={50}
+                className="h-12 w-auto object-contain brightness-0 invert"
+              />
             </Link>
             <p className="text-background/70 text-sm leading-relaxed">
               Tu concesionario de confianza. Autos seminuevos certificados con garantía y el mejor servicio.

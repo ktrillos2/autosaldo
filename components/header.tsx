@@ -45,9 +45,9 @@ export function Header() {
                 <Image
                   src="/logo.png"
                   alt="Autosaldo"
-                  width={180}
-                  height={50}
-                  className="h-10 w-auto object-contain"
+                  width={210}
+                  height={60}
+                  className="h-14 w-auto object-contain"
                   priority
                 />
               </div>
