@@ -8,10 +8,10 @@ import { WhatsAppButton } from "@/components/whatsapp-button"
 import { Shield, Users, Award, Clock, Target, Heart } from "lucide-react"
 
 const stats = [
-  { value: "5+", label: "Años de experiencia" },
-  { value: "1,500+", label: "Autos vendidos" },
-  { value: "98%", label: "Clientes satisfechos" },
-  { value: "240", label: "Puntos de inspección" },
+  { value: "8+", label: "Años de experiencia" },
+  { value: "200+", label: "Autos vendidos" },
+  { value: "100%", label: "Clientes satisfechos" },
+  { value: "24", label: "Horas promedio venta" },
 ]
 
 const values = [
@@ -124,7 +124,12 @@ export default function NosotrosPage() {
       <section className="py-16 bg-primary text-primary-foreground">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {stats.map((stat, index) => (
+            {[
+              { value: "8+", label: "Años de experiencia" },
+              { value: "200+", label: "Autos vendidos" },
+              { value: "100%", label: "Clientes satisfechos" },
+              { value: "24", label: "Horas promedio venta" },
+            ].map((stat, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
@@ -141,127 +146,91 @@ export default function NosotrosPage() {
         </div>
       </section>
 
-      {/* Story Section */}
+      {/* Mission & Vision Section */}
       <section className="py-20 md:py-28">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
-              <span className="text-accent font-medium text-sm tracking-wider uppercase">Nuestra Misión</span>
-              <h2 className="font-serif text-3xl md:text-4xl font-bold text-foreground mt-2 mb-6">
-                Revolucionando el mercado automotriz
-              </h2>
-              <div className="space-y-4 text-muted-foreground leading-relaxed">
-                <p>
-                  Autosaldo nació con una misión clara: eliminar la desconfianza y el estrés que rodea la compra y
-                  venta de autos usados. Creemos que cada persona merece una experiencia transparente, justa y sin
-                  complicaciones.
-                </p>
-                <p>
-                  Nuestro equipo de expertos inspecciona cada vehículo con 240 puntos de control, garantizando que solo
-                  los mejores autos lleguen a nuestro showroom. No se trata solo de vender autos, sino de construir
-                  relaciones de confianza que perduren en el tiempo.
-                </p>
-                <p>
-                  Hoy, después de más de 5 años y 1,500 autos vendidos, seguimos comprometidos con nuestra visión
-                  original: hacer que comprar o vender un auto sea una experiencia memorable y positiva.
-                </p>
-              </div>
-            </motion.div>
-
+          <div className="max-w-4xl mx-auto space-y-20">
+            {/* Mission */}
             <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="relative"
+              className="text-center md:text-left md:flex md:gap-12 items-center"
             >
-              <div className="aspect-[4/3] rounded-2xl overflow-hidden">
-                <Image
-                  src="/car-inspection-team-working.jpg"
-                  alt="Equipo de inspección"
-                  fill
-                  className="object-cover"
-                />
-              </div>
-              <div className="absolute -bottom-6 -left-6 w-32 h-32 bg-accent rounded-xl flex items-center justify-center">
-                <div className="text-center text-accent-foreground">
-                  <p className="font-serif text-3xl font-bold">5+</p>
-                  <p className="text-xs">años</p>
+              <div className="flex-1">
+                <span className="text-brand-red font-medium text-sm tracking-wider uppercase">Nuestra Misión</span>
+                <h2 className="font-serif text-3xl md:text-4xl font-bold text-foreground mt-2 mb-6">
+                  Soluciones rápidas y transparentes
+                </h2>
+                <div className="space-y-4 text-muted-foreground leading-relaxed">
+                  <p>
+                    Brindar soluciones rápidas, seguras y transparentes en la compra y venta de vehículos, especializándonos en vehículos con deuda, ayudando a nuestros clientes a cerrar operaciones sin complicaciones y con respaldo profesional.
+                  </p>
+                  <p>
+                    En Autosaldo priorizamos la claridad, la confianza y la atención personalizada, ofreciendo alternativas como compra inmediata, venta asistida y consignación, siempre alineadas a la realidad del mercado.
+                  </p>
                 </div>
               </div>
             </motion.div>
-          </div>
-        </div>
-      </section>
 
-      {/* Values Section */}
-      <section className="py-20 md:py-28 bg-secondary">
-        <div className="container mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-12"
-          >
-            <span className="text-accent font-medium text-sm tracking-wider uppercase">Lo que nos define</span>
-            <h2 className="font-serif text-3xl md:text-4xl font-bold text-foreground mt-2">Nuestros Valores</h2>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {values.map((value, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="bg-card rounded-xl p-6 border border-border"
-              >
-                <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
-                  <value.icon className="w-6 h-6 text-primary" />
+            {/* Vision */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-center md:text-left md:flex md:flex-row-reverse md:gap-12 items-center"
+            >
+              <div className="flex-1">
+                <span className="text-brand-red font-medium text-sm tracking-wider uppercase">Nuestra Visión</span>
+                <h2 className="font-serif text-3xl md:text-4xl font-bold text-foreground mt-2 mb-6">
+                  Referentes nacionales
+                </h2>
+                <div className="space-y-4 text-muted-foreground leading-relaxed">
+                  <p>
+                    Ser una empresa referente a nivel nacional en la compra y venta de vehículos, reconocida por su especialización en casos complejos, rapidez en los procesos y alto nivel de confianza.
+                  </p>
+                  <p>
+                    Buscamos consolidarnos como una marca sólida y profesional, con procesos eficientes y crecimiento sostenible, convirtiéndonos en la primera opción para quienes desean vender su vehículo sin estrés.
+                  </p>
                 </div>
-                <h3 className="font-semibold text-lg text-foreground mb-2">{value.title}</h3>
-                <p className="text-muted-foreground text-sm">{value.description}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
+              </div>
+            </motion.div>
 
-      {/* Team Section */}
-      <section className="py-20 md:py-28">
-        <div className="container mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-12"
-          >
-            <span className="text-accent font-medium text-sm tracking-wider uppercase">Las personas detrás</span>
-            <h2 className="font-serif text-3xl md:text-4xl font-bold text-foreground mt-2">Nuestro Equipo</h2>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-            {team.map((member, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="text-center group"
-              >
-                <div className="relative aspect-[3/4] rounded-xl overflow-hidden mb-4">
-                  <Image
-                    src={member.image || "/placeholder.svg"}
-                    alt={member.name}
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
+            {/* Expertise */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="bg-secondary/30 rounded-3xl p-8 md:p-12 text-center"
+            >
+              <h2 className="font-serif text-3xl md:text-4xl font-bold text-foreground mb-6">Nuestro Expertise</h2>
+              <div className="max-w-3xl mx-auto space-y-6 text-muted-foreground">
+                <p>
+                  En Autosaldo contamos con más de 8 años de experiencia en el mercado automotriz, operando activamente desde el año 2019.
+                </p>
+                <div className="bg-background rounded-xl p-6 shadow-sm border border-border inline-block text-left w-full max-w-lg">
+                  <p className="font-semibold text-foreground mb-4">Durante este tiempo hemos participado en la venta y gestión de más de 200 vehículos, incluyendo:</p>
+                  <ul className="space-y-2">
+                    <li className="flex items-center gap-2">
+                      <div className="w-1.5 h-1.5 rounded-full bg-brand-red" />
+                      Vehículos sin deuda
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <div className="w-1.5 h-1.5 rounded-full bg-brand-red" />
+                      Vehículos con crédito vehicular activo
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <div className="w-1.5 h-1.5 rounded-full bg-brand-red" />
+                      Casos con prenda y procesos financieros en curso
+                    </li>
+                  </ul>
                 </div>
-                <h3 className="font-semibold text-lg text-foreground">{member.name}</h3>
-                <p className="text-sm text-muted-foreground">{member.role}</p>
-              </motion.div>
-            ))}
+                <p>
+                  Nuestro conocimiento del mercado, de los precios reales y de los procesos notariales y financieros nos permite ofrecer soluciones eficientes, seguras y adaptadas a cada cliente.
+                </p>
+              </div>
+            </motion.div>
+
           </div>
         </div>
       </section>

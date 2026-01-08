@@ -28,7 +28,7 @@ export function CarCard({ car, index = 0 }: CarCardProps) {
             />
             <Badge className="absolute top-3 left-3 bg-foreground/80 text-background">{car.category}</Badge>
             {car.featured && (
-              <Badge className="absolute top-3 right-3 bg-accent text-accent-foreground">Destacado</Badge>
+              <Badge className="absolute top-3 right-3 bg-[#d30826] text-white hover:bg-[#d30826]/90">Destacado</Badge>
             )}
           </div>
           <CardContent className="p-5">

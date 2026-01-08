@@ -7,11 +7,12 @@ import { ArrowRight, Zap, CarFront, ShieldCheck, Banknote, CheckCircle2 } from "
 
 export function CTASection() {
   return (
-    <section className="py-24 md:py-32 bg-[#0a0a0a] relative overflow-hidden">
-      {/* Líneas decorativas */}
+    <section className="py-24 md:py-32 relative overflow-hidden bg-slate-50">
+      {/* Fondo Gradiente */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-0 left-1/4 w-px h-full bg-gradient-to-b from-transparent via-white/5 to-transparent" />
-        <div className="absolute top-0 right-1/4 w-px h-full bg-gradient-to-b from-transparent via-white/5 to-transparent" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px]" />
+        <div className="absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px] rounded-full bg-[#d30826] opacity-10 blur-[100px]" />
+        <div className="absolute right-0 bottom-0 -z-10 h-[400px] w-[400px] bg-[#002559] opacity-10 blur-[120px]" />
       </div>
 
       <div className="container mx-auto px-4 lg:px-8 relative z-10">
@@ -34,11 +35,11 @@ export function CTASection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
-              className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight"
+              className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#002559] mb-6 leading-tight"
             >
-              Obtén el mejor precio
+              Tú pones el vehículo.
               <br />
-              <span className="text-primary">por tu vehículo</span>
+              <span className="text-[#d30826]">Nosotros nos encargamos de venderlo.</span>
             </motion.h2>
 
             <motion.p
@@ -46,9 +47,9 @@ export function CTASection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.2 }}
-              className="text-lg text-white/50 max-w-2xl mx-auto"
+              className="text-lg text-gray-600 max-w-2xl mx-auto"
             >
-              Proceso 100% digital. Cotiza en 60 segundos y recibe una oferta real por tu auto.
+              En Autosaldo te ayudamos a vender tu vehículo de forma segura, ordenada y sin complicaciones. Nos encargamos de todo el proceso para que no pierdas tiempo atendiendo interesados ni negociando sin respaldo.
             </motion.p>
           </div>
 
@@ -72,13 +73,13 @@ export function CTASection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.3 + i * 0.1 }}
-                className="bg-white/5 border border-white/10 rounded-2xl p-6 text-center hover:bg-white/10 transition-colors"
+                className="bg-white border border-gray-200 shadow-lg shadow-gray-200/50 rounded-2xl p-6 text-center hover:-translate-y-1 transition-all duration-300"
               >
                 <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-4">
                   <item.icon className="w-7 h-7 text-primary" />
                 </div>
-                <p className="text-2xl font-bold text-white mb-1">{item.title}</p>
-                <p className="text-sm text-white/50">{item.desc}</p>
+                <p className="text-2xl font-bold text-[#002559] mb-1">{item.title}</p>
+                <p className="text-sm text-gray-500">{item.desc}</p>
               </motion.div>
             ))}
           </motion.div>
@@ -89,35 +90,42 @@ export function CTASection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.5 }}
-            className="bg-white/5 border border-white/10 rounded-3xl p-8 md:p-12 mb-12"
+            className="bg-white border border-gray-200 shadow-xl shadow-gray-200/50 rounded-3xl p-8 md:p-12 mb-12"
           >
-            <div className="grid md:grid-cols-3 gap-8">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 row-gap-12">
               {[
                 {
                   step: "01",
-                  title: "Cotiza Online",
-                  desc: "Ingresa los datos de tu vehículo y obtén un precio estimado al instante",
+                  title: "Contacto inicial",
+                  desc: "Nos escribes y recibimos la información básica de tu vehículo: marca, modelo, año y situación actual.",
                 },
                 {
                   step: "02",
-                  title: "Inspección",
-                  desc: "Agendamos una cita para revisar tu auto en el lugar que prefieras",
+                  title: "Tasación e inspección",
+                  desc: "Vamos hasta tu domicilio para evaluar el estado mecánico, estético y legal del vehículo, y definir un precio real de mercado.",
                 },
                 {
                   step: "03",
-                  title: "Recibe tu Pago",
-                  desc: "Aprobada la inspección, recibes tu dinero en menos de 24 horas",
+                  title: "Producción y publicación",
+                  desc: "Tomamos fotografías, recopilamos toda la información relevante y publicamos tu vehículo en nuestros canales.",
+                },
+                {
+                  step: "04",
+                  title: "Gestión de interesados",
+                  desc: "Nos encargamos de responder mensajes, filtrar compradores reales, coordinar visitas y negociar el mejor precio contigo.",
+                },
+                {
+                  step: "05",
+                  title: "Cierre y firma notarial",
+                  desc: "Cuando se concreta la venta, coordinamos la firma notarial y cerramos la operación de forma segura y transparente.",
                 },
               ].map((item, i) => (
-                <div key={i} className="relative">
-                  <span className="text-6xl font-bold text-primary/50 absolute -top-4 -left-2">{item.step}</span>
+                <div key={i} className="relative group">
+                  <span className="text-6xl font-bold text-gray-100 absolute -top-4 -left-2 group-hover:text-primary/10 transition-colors">{item.step}</span>
                   <div className="relative z-10 pt-8">
-                    <h3 className="text-xl font-bold text-white mb-3">{item.title}</h3>
-                    <p className="text-white/50 leading-relaxed">{item.desc}</p>
+                    <h3 className="text-xl font-bold text-[#002559] mb-3">{item.title}</h3>
+                    <p className="text-gray-600 leading-relaxed">{item.desc}</p>
                   </div>
-                  {i < 2 && (
-                    <div className="hidden md:block absolute top-1/2 -right-4 w-8 h-px bg-gradient-to-r from-primary/50 to-transparent" />
-                  )}
                 </div>
               ))}
             </div>
@@ -142,17 +150,17 @@ export function CTASection() {
               </Link>
             </Button>
 
-            <div className="flex items-center justify-center gap-6 mt-8 text-white/40 text-sm">
+            <div className="flex items-center justify-center gap-6 mt-8 text-gray-500 text-sm">
               <span className="flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4 text-primary" />
+                <CheckCircle2 className="w-4 h-4 text-[#d30826]" />
                 Sin compromiso
               </span>
               <span className="flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4 text-primary" />
+                <CheckCircle2 className="w-4 h-4 text-[#d30826]" />
                 100% gratis
               </span>
               <span className="flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4 text-primary" />
+                <CheckCircle2 className="w-4 h-4 text-[#d30826]" />
                 Respuesta inmediata
               </span>
             </div>

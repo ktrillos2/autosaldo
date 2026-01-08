@@ -1,58 +1,71 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Shield, Award, Clock, CheckCircle, ArrowRight } from "lucide-react"
-import Link from "next/link"
+import { Phone, ClipboardCheck, Car, Banknote, PenTool } from "lucide-react"
 
-const features = [
+const steps = [
   {
-    icon: Shield,
-    title: "Garantía Extendida",
-    description: "12 meses de garantía en motor y transmisión incluida.",
+    number: "01",
+    title: "Contacto y evaluación",
+    description: "Recibimos los datos de tu vehículo y analizamos tu caso.",
+    icon: Phone,
   },
   {
-    icon: CheckCircle,
-    title: "240 Puntos de Inspección",
-    description: "Riguroso proceso de certificación en cada vehículo.",
+    number: "02",
+    title: "Tasación real de mercado",
+    description: "Te damos un precio honesto, alineado al mercado actual.",
+    icon: ClipboardCheck,
   },
   {
-    icon: Clock,
-    title: "Proceso Rápido",
-    description: "Compra o vende tu auto en menos de 24 horas.",
+    number: "03",
+    title: "Inspección del vehículo",
+    description: "Validamos el estado mecánico, estético y legal.",
+    icon: Car,
   },
   {
-    icon: Award,
-    title: "Financiamiento",
-    description: "Las mejores tasas con los principales bancos.",
+    number: "04",
+    title: "Gestión de deuda y pago",
+    description: "Pagamos la deuda y te entregamos el saldo restante.",
+    icon: Banknote,
+  },
+  {
+    number: "05",
+    title: "Firma notarial y cierre",
+    description: "Realizamos la transferencia de forma segura y legal.",
+    icon: PenTool,
   },
 ]
 
 export function TrustSection() {
   return (
-    <section className="py-24 md:py-32 bg-white relative overflow-hidden">
-      <div className="container mx-auto px-4 lg:px-8">
-        {/* Header */}
-        <div className="max-w-3xl mx-auto text-center mb-20">
-          <motion.span
+    <section className="py-20 relative overflow-hidden bg-[#f3f4f6]">
+      {/* Fondo Gradiente Suave */}
+      <div className="absolute inset-0 w-full h-full bg-gradient-to-b from-white to-[#f3f4f6]"></div>
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full max-w-7xl pointer-events-none">
+        <div className="absolute top-[10%] left-[5%] w-72 h-72 bg-[#002559]/5 rounded-full blur-3xl" />
+        <div className="absolute bottom-[10%] right-[5%] w-96 h-96 bg-[#d30826]/5 rounded-full blur-3xl" />
+      </div>
+
+      <div className="container mx-auto px-4 relative z-10">
+        <div className="text-center mb-16">
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="inline-flex items-center gap-3 text-primary text-sm font-semibold tracking-widest uppercase mb-6"
+            className="flex items-center justify-center gap-2 mb-4"
           >
-            <span className="w-12 h-px bg-primary" />
-            Por qué elegirnos
-            <span className="w-12 h-px bg-primary" />
-          </motion.span>
+            <div className="w-2 h-2 rounded-full bg-[#d30826]" />
+            <span className="text-[#d30826] font-medium tracking-wider uppercase">Proceso transparente</span>
+          </motion.div>
 
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6"
+            className="text-4xl md:text-5xl font-bold mb-4 text-[#002559]"
           >
-            La mejor experiencia en
-            <span className="text-primary"> compra y venta</span>
+            Así trabajamos en Autosaldo
           </motion.h2>
 
           <motion.p
@@ -60,84 +73,53 @@ export function TrustSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="text-lg text-muted-foreground"
+            className="text-gray-600 text-lg max-w-2xl mx-auto"
           >
-            Más de 12 años respaldando a miles de familias peruanas en la compra de su vehículo ideal.
+            Descubre nuestro proceso claro y seguro para vender tu vehículo.
           </motion.p>
         </div>
 
-        {/* Features con diseño alternado */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-20">
-          {features.map((feature, index) => (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+          {steps.map((step, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-              className="group text-center"
+              transition={{ delay: index * 0.1 + 0.3 }}
+              className="relative group"
             >
-              <div className="w-16 h-16 rounded-2xl bg-[#f5f5f5] flex items-center justify-center mx-auto mb-6 group-hover:bg-primary transition-colors duration-300">
-                <feature.icon className="w-8 h-8 text-primary group-hover:text-white transition-colors duration-300" />
+              {/* Connector Line (Desktop) */}
+              {index < steps.length - 1 && (
+                <div className="hidden lg:block absolute top-8 left-1/2 w-full h-[2px] bg-gray-100 -z-10">
+                  <div className="absolute right-0 top-1/2 -translate-y-1/2 w-2 h-2 bg-[#d30826] rounded-full" />
+                </div>
+              )}
+
+              <div className="bg-white border border-gray-100 shadow-xl shadow-gray-200/50 rounded-2xl p-6 h-full flex flex-col items-center text-center hover:-translate-y-2 hover:shadow-2xl hover:shadow-primary/5 transition-all duration-300 group-hover:border-primary/20">
+                <div className="w-12 h-12 rounded-full bg-[#d30826] flex items-center justify-center text-white font-bold text-lg mb-6 shadow-lg shadow-red-500/30 group-hover:scale-110 transition-transform">
+                  {step.number}
+                </div>
+
+                <h3 className="font-bold text-lg text-[#002559] leading-tight mb-4 min-h-[3rem] flex items-center justify-center">
+                  {step.title}
+                </h3>
+
+                <div className="w-16 h-16 mb-4 text-[#d30826] group-hover:scale-110 transition-transform duration-300">
+                  <step.icon className="w-full h-full stroke-[1.5]" />
+                </div>
+
+                <div className="w-8 h-8 rounded-full bg-gray-50 flex items-center justify-center mb-4 group-hover:bg-primary/5 transition-colors">
+                  <div className="w-2 h-2 border-r-2 border-b-2 border-[#d30826] rotate-45 group-hover:translate-y-0.5 transition-transform" />
+                </div>
+
+                <p className="text-sm text-gray-600 leading-relaxed">
+                  {step.description}
+                </p>
               </div>
-              <h3 className="font-bold text-lg text-foreground mb-3">{feature.title}</h3>
-              <p className="text-muted-foreground leading-relaxed">{feature.description}</p>
             </motion.div>
           ))}
         </div>
-
-        {/* Banner con números */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="relative rounded-3xl overflow-hidden"
-        >
-          {/* Fondo con gradiente */}
-          <div className="absolute inset-0 bg-[#0a0a0a]" />
-
-          {/* Contenido */}
-          <div className="relative z-10 px-8 py-16 md:px-16 md:py-20">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
-              {[
-                { value: "12+", label: "Años en el mercado" },
-                { value: "5,000+", label: "Clientes satisfechos" },
-                { value: "8,500+", label: "Autos vendidos" },
-                { value: "98%", label: "Satisfacción" },
-              ].map((stat, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.1 + i * 0.1 }}
-                  className="text-center"
-                >
-                  <p className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-2">{stat.value}</p>
-                  <p className="text-white/50 text-sm md:text-base">{stat.label}</p>
-                </motion.div>
-              ))}
-            </div>
-
-            {/* CTA dentro del banner */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.5 }}
-              className="mt-12 pt-12 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-6"
-            >
-              <p className="text-white/70 text-lg text-center md:text-left">¿Listo para encontrar tu próximo auto?</p>
-              <Link
-                href="/showroom"
-                className="group inline-flex items-center gap-3 text-primary font-semibold hover:gap-4 transition-all"
-              >
-                Ver Catálogo Completo
-                <ArrowRight className="w-5 h-5" />
-              </Link>
-            </motion.div>
-          </div>
-        </motion.div>
       </div>
     </section>
   )

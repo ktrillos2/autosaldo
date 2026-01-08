@@ -34,7 +34,7 @@ export function Header() {
       <motion.header
         initial={{ y: -100 }}
         animate={{ y: 0 }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled || pathname !== "/" ? "bg-accent shadow-lg shadow-black/5 py-3" : "bg-transparent py-6"
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled || pathname !== "/" ? "bg-white shadow-lg shadow-black/5 py-3" : "bg-transparent py-6"
           }`}
       >
         <div className="container mx-auto px-4 lg:px-8">
@@ -45,9 +45,10 @@ export function Header() {
                 <Image
                   src="/logo.png"
                   alt="Autosaldo"
-                  width={210}
-                  height={60}
-                  className="h-14 w-auto object-contain"
+                  width={300}
+                  height={85}
+                  className={`h-20 w-auto object-contain transition-all duration-300 ${scrolled || pathname !== "/" ? "" : "brightness-0 invert"
+                    }`}
                   priority
                 />
               </div>
@@ -56,7 +57,7 @@ export function Header() {
             {/* Nav desktop */}
             <nav className="hidden lg:flex items-center">
               <div
-                className={`flex items-center rounded-full px-2 py-2 transition-all duration-300 ${scrolled ? "bg-white/10 backdrop-blur-md" : "bg-white/10 backdrop-blur-md"
+                className={`flex items-center rounded-full px-2 py-2 transition-all duration-300 ${scrolled ? "bg-gray-100" : "bg-white/10 backdrop-blur-md"
                   }`}
               >
                 {navLinks.map((link) => {
@@ -66,13 +67,11 @@ export function Header() {
                       key={link.href}
                       href={link.href}
                       prefetch={true}
-                      className={`relative px-5 py-2.5 text-sm font-medium rounded-full transition-all duration-300 ${isActive
-                        ? scrolled
-                          ? "bg-white text-accent"
-                          : "bg-white text-accent"
-                        : scrolled
-                          ? "text-white/70 hover:text-white hover:bg-white/10"
-                          : "text-white/80 hover:text-white hover:bg-white/10"
+                      className={`relative px-6 py-2 rounded-full text-sm font-medium transition-all duration-300 ${isActive
+                        ? "bg-primary text-white shadow-lg shadow-primary/25"
+                        : scrolled || pathname !== "/"
+                          ? "text-accent hover:bg-white hover:shadow-md"
+                          : "text-white hover:bg-white/20"
                         }`}
                     >
                       {link.label}
