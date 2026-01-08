@@ -11,7 +11,7 @@ export function Footer() {
               <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
                 <Car className="w-6 h-6 text-primary-foreground" />
               </div>
-              <span className="font-serif text-xl font-bold">AutoPremium</span>
+              <span className="font-serif text-xl font-bold">Autosaldo</span>
             </Link>
             <p className="text-background/70 text-sm leading-relaxed">
               Tu concesionario de confianza. Autos seminuevos certificados con garantía y el mejor servicio.
@@ -53,7 +53,7 @@ export function Footer() {
               </li>
               <li className="flex items-center gap-2 text-sm text-background/70">
                 <Mail className="w-4 h-4 shrink-0" />
-                <span>info@autopremium.pe</span>
+                <span>info@Autosaldo.pe</span>
               </li>
               <li className="flex items-start gap-2 text-sm text-background/70">
                 <MapPin className="w-4 h-4 shrink-0 mt-0.5" />
@@ -89,7 +89,7 @@ export function Footer() {
 
         <div className="mt-12 pt-8 border-t border-background/10 text-center">
           <p className="text-sm text-background/50">
-            © {new Date().getFullYear()} AutoPremium. Todos los derechos reservados.
+            © {new Date().getFullYear()} Autosaldo. Todos los derechos reservados.
           </p>
         </div>
       </div>

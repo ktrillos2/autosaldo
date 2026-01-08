@@ -17,8 +17,8 @@ const contactInfo = [
   {
     icon: Mail,
     title: "Email",
-    value: "info@autopremium.pe",
-    href: "mailto:info@autopremium.pe",
+    value: "info@Autosaldo.pe",
+    href: "mailto:info@Autosaldo.pe",
   },
   {
     icon: MapPin,
@@ -118,7 +118,7 @@ export default function ContactoPage() {
                   allowFullScreen
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
-                  title="Ubicación de AutoPremium"
+                  title="Ubicación de Autosaldo"
                 />
               </div>
             </motion.div>

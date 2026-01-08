@@ -39,7 +39,7 @@ export function Header() {
         <div className="container mx-auto px-4 lg:px-8">
           <div className="flex items-center justify-between">
             {/* Logo */}
-            <Link href="/" className="group flex items-center gap-2">
+            <Link href="/" className="group flex items-center gap-2" prefetch={true}>
               <div className="relative flex items-center">
                 <div
                   className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300 ${scrolled ? "bg-white" : "bg-white"
@@ -68,13 +68,14 @@ export function Header() {
                     <Link
                       key={link.href}
                       href={link.href}
+                      prefetch={true}
                       className={`relative px-5 py-2.5 text-sm font-medium rounded-full transition-all duration-300 ${isActive
-                          ? scrolled
-                            ? "bg-white text-accent"
-                            : "bg-white text-accent"
-                          : scrolled
-                            ? "text-white/70 hover:text-white hover:bg-white/10"
-                            : "text-white/80 hover:text-white hover:bg-white/10"
+                        ? scrolled
+                          ? "bg-white text-accent"
+                          : "bg-white text-accent"
+                        : scrolled
+                          ? "text-white/70 hover:text-white hover:bg-white/10"
+                          : "text-white/80 hover:text-white hover:bg-white/10"
                         }`}
                     >
                       {link.label}
@@ -97,11 +98,11 @@ export function Header() {
               <Button
                 asChild
                 className={`group rounded-full px-6 h-11 font-medium transition-all duration-300 ${scrolled
-                    ? "bg-white text-accent hover:bg-white/90"
-                    : "bg-white text-accent hover:bg-white/90"
+                  ? "bg-white text-accent hover:bg-white/90"
+                  : "bg-white text-accent hover:bg-white/90"
                   }`}
               >
-                <Link href="/showroom">
+                <Link href="/showroom" prefetch={true}>
                   Ver Autos
                   <ArrowUpRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                 </Link>
@@ -146,6 +147,7 @@ export function Header() {
                 >
                   <Link
                     href={link.href}
+                    prefetch={true}
                     className={`block text-4xl md:text-5xl font-semibold py-4 transition-colors ${pathname === link.href ? "text-primary" : "text-white hover:text-primary"
                       }`}
                     onClick={() => setIsOpen(false)}

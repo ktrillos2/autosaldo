@@ -82,7 +82,7 @@ export default function NosotrosPage() {
         <motion.div style={{ y }} className="absolute inset-0">
           <Image
             src="/modern-car-showroom-interior.jpg"
-            alt="Showroom AutoPremium"
+            alt="Showroom Autosaldo"
             fill
             className="object-cover"
             priority
@@ -152,7 +152,7 @@ export default function NosotrosPage() {
               </h2>
               <div className="space-y-4 text-muted-foreground leading-relaxed">
                 <p>
-                  AutoPremium nació con una misión clara: eliminar la desconfianza y el estrés que rodea la compra y
+                  Autosaldo nació con una misión clara: eliminar la desconfianza y el estrés que rodea la compra y
                   venta de autos usados. Creemos que cada persona merece una experiencia transparente, justa y sin
                   complicaciones.
                 </p>

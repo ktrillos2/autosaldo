@@ -8,12 +8,12 @@ const faqs = [
     answer: "Aceptamos vehículos con menos de 10 años de antigüedad y menos de 100,000 kilómetros de recorrido.",
   },
   {
-    question: "¿Por qué vender en AutoPremium?",
+    question: "¿Por qué vender en Autosaldo?",
     answer:
       "Buscamos que vender tu auto sea una experiencia transparente, única y rápida. Queremos eliminarte el riesgo de estafas, valorizaciones por debajo del mercado y el estrés que implica negociar con múltiples personas.",
   },
   {
-    question: "¿Cómo funciona la venta con AutoPremium?",
+    question: "¿Cómo funciona la venta con Autosaldo?",
     answer:
       "¡Es rápido y sencillo! Solo tienes que cotizar tu auto en esta sección y vas a recibir una cotización instantánea. Si estás de acuerdo con la oferta, agendamos una inspección y si todo está ok te damos 3 propuestas por tu auto: Venta inmediata, Consignación y Subasta. Tú eliges la oferta que más te guste.",
   },

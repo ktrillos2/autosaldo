@@ -11,7 +11,7 @@ const poppins = Poppins({
 })
 
 export const metadata: Metadata = {
-  title: "AutoPremium | Tu Concesionario de Confianza",
+  title: "Autosaldo | Tu Concesionario de Confianza",
   description: "Encuentra el auto de tus sueños. Venta de autos seminuevos certificados con garantía.",
   generator: "v0.app",
   icons: {
