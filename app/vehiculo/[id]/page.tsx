@@ -1,6 +1,5 @@
 import { notFound } from "next/navigation"
 import Link from "next/link"
-import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
 import { ImageGallery } from "@/components/image-gallery"
 import { VehicleSpecs } from "@/components/vehicle-specs"
@@ -28,7 +27,6 @@ export default async function VehiclePage({ params }: VehiclePageProps) {
 
   return (
     <main className="min-h-screen bg-background pb-24 lg:pb-0">
-      <Header />
 
       <div className="pt-20 md:pt-24">
         <div className="container mx-auto px-4 py-8">

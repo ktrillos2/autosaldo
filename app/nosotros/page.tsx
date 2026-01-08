@@ -3,7 +3,6 @@
 import { motion, useScroll, useTransform } from "framer-motion"
 import Image from "next/image"
 import { useRef } from "react"
-import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
 import { WhatsAppButton } from "@/components/whatsapp-button"
 import { Shield, Users, Award, Clock, Target, Heart } from "lucide-react"
@@ -77,7 +76,6 @@ export default function NosotrosPage() {
 
   return (
     <main className="min-h-screen bg-background">
-      <Header />
 
       {/* Hero Section with Parallax */}
       <section ref={heroRef} className="relative h-[70vh] min-h-[500px] overflow-hidden pt-20">

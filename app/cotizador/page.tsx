@@ -1,7 +1,6 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
 import { WhatsAppButton } from "@/components/whatsapp-button"
 import { CotizadorWizard } from "@/components/cotizador-wizard"
@@ -18,7 +17,6 @@ export default function CotizadorPage() {
 
   return (
     <main className="min-h-screen bg-background">
-      <Header />
 
       <section className="pt-20 relative overflow-hidden bg-accent min-h-[60vh] flex items-center">
         {/* Fondo con patrón geométrico sutil */}
@@ -40,7 +38,7 @@ export default function CotizadorPage() {
 
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-[1.1]">
                 Vende tu auto
-                <span className="block text-gradient">al mejor precio</span>
+                <span className="block text-white">al mejor precio</span>
               </h1>
 
               <div className="flex gap-6 mb-10 max-w-lg">

@@ -2,7 +2,6 @@
 
 import { useState, useMemo } from "react"
 import { motion } from "framer-motion"
-import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
 import { WhatsAppButton } from "@/components/whatsapp-button"
 import { CarCard } from "@/components/car-card"
@@ -112,7 +111,6 @@ export default function ShowroomPage() {
 
   return (
     <main className="min-h-screen bg-background">
-      <Header />
 
       {/* Hero Banner */}
       <section className="pt-20 md:pt-24 pb-8 bg-secondary">

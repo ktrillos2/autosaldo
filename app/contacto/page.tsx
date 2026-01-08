@@ -1,7 +1,6 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
 import { WhatsAppButton } from "@/components/whatsapp-button"
 import { ContactForm } from "@/components/contact-form"
@@ -38,7 +37,6 @@ const contactInfo = [
 export default function ContactoPage() {
   return (
     <main className="min-h-screen bg-background">
-      <Header />
 
       {/* Hero Section */}
       <section className="pt-20 md:pt-24 pb-12 bg-secondary">
