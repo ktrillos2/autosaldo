@@ -88,7 +88,7 @@ export function HeroSection() {
               >
                 <span className="inline-flex items-center gap-3 text-primary text-sm font-semibold tracking-widest uppercase">
                   <span className="w-12 h-px bg-primary" />
-                  Concesionario Premium
+                  Concesionario
                 </span>
               </motion.div>
 

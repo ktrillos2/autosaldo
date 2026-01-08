@@ -3,7 +3,7 @@
 import { motion } from "framer-motion"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { ArrowRight, Car, Clock, Shield, TrendingUp, CheckCircle2 } from "lucide-react"
+import { ArrowRight, Zap, CarFront, ShieldCheck, Banknote, CheckCircle2 } from "lucide-react"
 
 export function CTASection() {
   return (
@@ -61,10 +61,10 @@ export function CTASection() {
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16"
           >
             {[
-              { icon: Clock, title: "60 seg", desc: "Cotización rápida" },
-              { icon: Shield, title: "100%", desc: "Proceso seguro" },
-              { icon: Car, title: "Gratis", desc: "Recojo a domicilio" },
-              { icon: TrendingUp, title: "Mejor", desc: "Precio del mercado" },
+              { icon: Zap, title: "60 seg", desc: "Cotización rápida" },
+              { icon: ShieldCheck, title: "100%", desc: "Proceso seguro" },
+              { icon: CarFront, title: "Gratis", desc: "Recojo a domicilio" },
+              { icon: Banknote, title: "Mejor", desc: "Precio del mercado" },
             ].map((item, i) => (
               <motion.div
                 key={i}
@@ -110,7 +110,7 @@ export function CTASection() {
                 },
               ].map((item, i) => (
                 <div key={i} className="relative">
-                  <span className="text-6xl font-bold text-white/5 absolute -top-4 -left-2">{item.step}</span>
+                  <span className="text-6xl font-bold text-primary/50 absolute -top-4 -left-2">{item.step}</span>
                   <div className="relative z-10 pt-8">
                     <h3 className="text-xl font-bold text-white mb-3">{item.title}</h3>
                     <p className="text-white/50 leading-relaxed">{item.desc}</p>
