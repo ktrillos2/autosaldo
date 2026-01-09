@@ -19,10 +19,10 @@ export default function CotizadorPage() {
         </div>
       </section>
 
-      <BuyingProcess />
-
       {/* Quote Form Section */}
       <QuoteForm />
+
+      <BuyingProcess />
 
       <CotizadorFAQ />
       <Footer />

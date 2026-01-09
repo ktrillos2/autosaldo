@@ -3,7 +3,7 @@
 import { motion } from "framer-motion"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { ArrowRight, Zap, CarFront, ShieldCheck, Banknote, CheckCircle2 } from "lucide-react"
+import { ArrowRight, Zap, CarFront, ShieldCheck, Banknote, CheckCircle2, MessageCircle, ClipboardCheck, Camera, UserCheck, FileSignature } from "lucide-react"
 
 export function CTASection() {
   return (
@@ -26,7 +26,7 @@ export function CTASection() {
               className="inline-flex items-center gap-3 text-primary text-sm font-semibold tracking-widest uppercase mb-6"
             >
               <span className="w-12 h-px bg-primary" />
-              Vende tu Auto
+              SERVICIO DE VENTA ASISTIDA
               <span className="w-12 h-px bg-primary" />
             </motion.span>
 
@@ -85,47 +85,54 @@ export function CTASection() {
           </motion.div>
 
           {/* Proceso simplificado */}
+          {/* Proceso simplificado */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.5 }}
-            className="bg-white border border-gray-200 shadow-xl shadow-gray-200/50 rounded-3xl p-8 md:p-12 mb-12"
+            className="mb-16"
           >
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 row-gap-12">
+            <div className="grid md:grid-cols-3 lg:grid-cols-5 gap-4">
               {[
                 {
+                  icon: MessageCircle,
                   step: "01",
-                  title: "Contacto inicial",
-                  desc: "Nos escribes y recibimos la información básica de tu vehículo: marca, modelo, año y situación actual.",
+                  title: "Contacto",
+                  desc: "Envíanos los datos básicos.",
                 },
                 {
+                  icon: ClipboardCheck,
                   step: "02",
-                  title: "Tasación e inspección",
-                  desc: "Vamos hasta tu domicilio para evaluar el estado mecánico, estético y legal del vehículo, y definir un precio real de mercado.",
+                  title: "Tasación",
+                  desc: "Evaluamos tu auto a domicilio.",
                 },
                 {
+                  icon: Camera,
                   step: "03",
-                  title: "Producción y publicación",
-                  desc: "Tomamos fotografías, recopilamos toda la información relevante y publicamos tu vehículo en nuestros canales.",
+                  title: "Publicación",
+                  desc: "Fotos profesionales y difusión.",
                 },
                 {
+                  icon: UserCheck,
                   step: "04",
-                  title: "Gestión de interesados",
-                  desc: "Nos encargamos de responder mensajes, filtrar compradores reales, coordinar visitas y negociar el mejor precio contigo.",
+                  title: "Gestión",
+                  desc: "Filtramos compradores reales.",
                 },
                 {
+                  icon: FileSignature,
                   step: "05",
-                  title: "Cierre y firma notarial",
-                  desc: "Cuando se concreta la venta, coordinamos la firma notarial y cerramos la operación de forma segura y transparente.",
+                  title: "Venta",
+                  desc: "Trámite notarial seguro.",
                 },
               ].map((item, i) => (
-                <div key={i} className="relative group">
-                  <span className="text-6xl font-bold text-gray-100 absolute -top-4 -left-2 group-hover:text-primary/10 transition-colors">{item.step}</span>
-                  <div className="relative z-10 pt-8">
-                    <h3 className="text-xl font-bold text-[#002559] mb-3">{item.title}</h3>
-                    <p className="text-gray-600 leading-relaxed">{item.desc}</p>
+                <div key={i} className="relative group bg-white border border-gray-100 rounded-2xl p-6 hover:shadow-lg transition-all duration-300 text-center">
+                  <div className="w-12 h-12 mx-auto bg-primary/5 rounded-full flex items-center justify-center mb-4 group-hover:bg-[#d30826]/10 transition-colors">
+                    <item.icon className="w-6 h-6 text-[#002559] group-hover:text-[#d30826] transition-colors" />
                   </div>
+                  <div className="absolute top-4 right-4 text-xs font-bold text-gray-200">{item.step}</div>
+                  <h3 className="font-bold text-[#002559] mb-2">{item.title}</h3>
+                  <p className="text-sm text-gray-500 leading-snug">{item.desc}</p>
                 </div>
               ))}
             </div>
