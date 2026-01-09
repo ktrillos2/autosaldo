@@ -10,6 +10,7 @@ import { ShowroomSort, type SortOption } from "@/components/showroom-sort"
 import { Input } from "@/components/ui/input"
 import { Search } from "lucide-react"
 import { cars } from "@/lib/data"
+import { VehicleUploadSection } from "@/components/vehicle-upload-section"
 
 const initialFilters: Filters = {
   brands: [],
@@ -184,6 +185,7 @@ export default function ShowroomPage() {
         </div>
       </section>
 
+      <VehicleUploadSection />
       <Footer />
       <WhatsAppButton />
     </main>

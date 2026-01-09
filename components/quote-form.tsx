@@ -138,6 +138,21 @@ export function QuoteForm() {
                                     </div>
                                 </div>
 
+                                {/* Fuel Type */}
+                                <div className="space-y-2">
+                                    <Select>
+                                        <SelectTrigger className="h-12 bg-gray-50 border-gray-200">
+                                            <SelectValue placeholder="Combustible" />
+                                        </SelectTrigger>
+                                        <SelectContent>
+                                            <SelectItem value="gasolina">Gasolina</SelectItem>
+                                            <SelectItem value="diesel">Diesel</SelectItem>
+                                            <SelectItem value="gnv">Dual GNV</SelectItem>
+                                            <SelectItem value="glp">Dual GLP</SelectItem>
+                                        </SelectContent>
+                                    </Select>
+                                </div>
+
                                 {/* Debt */}
                                 <div className="space-y-2">
                                     <Select>

@@ -43,7 +43,7 @@ export function CarCard({ car, index = 0 }: CarCardProps) {
               </div>
               <p className="font-bold text-lg text-primary shrink-0">{formatPrice(car.price)}</p>
             </div>
-            <div className="flex items-center gap-4 text-sm text-muted-foreground">
+            <div className="flex items-center gap-4 text-sm text-muted-foreground mb-4">
               <span className="flex items-center gap-1">
                 <Gauge className="w-4 h-4" />
                 {formatMileage(car.mileage)} km
@@ -57,9 +57,23 @@ export function CarCard({ car, index = 0 }: CarCardProps) {
                 {car.transmission}
               </span>
             </div>
+
+            {car.owner && (
+              <div className="pt-3 border-t border-gray-100 mt-2">
+                <p className="text-sm text-gray-500 text-center">
+                  Vehículo de: <span className="font-semibold text-[#002559]">{formatOwnerName(car.owner)}</span>
+                </p>
+              </div>
+            )}
           </CardContent>
         </Card>
       </Link>
     </motion.div>
   )
+}
+
+function formatOwnerName(name: string): string {
+  const parts = name.split(" ")
+  if (parts.length < 2) return name
+  return `${parts[0]} ${parts[1].charAt(0)}.`
 }

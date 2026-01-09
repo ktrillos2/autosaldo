@@ -16,6 +16,7 @@ export interface Car {
   keys: number
   images: string[]
   featured?: boolean
+  owner?: string
 }
 
 export const cars: Car[] = [
@@ -42,6 +43,7 @@ export const cars: Car[] = [
       "/bmw-serie-5-520i-sedan-azul-tablero.jpg",
     ],
     featured: true,
+    owner: "Manuel Vilela",
   },
   {
     id: "2",

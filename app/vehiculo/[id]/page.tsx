@@ -60,6 +60,13 @@ export default async function VehiclePage({ params }: VehiclePageProps) {
 
               {/* Description */}
               <div className="bg-card rounded-xl border border-border p-6">
+                {car.owner && (
+                  <div className="mb-4 pb-4 border-b border-border">
+                    <p className="text-sm text-muted-foreground">
+                      Vehículo de: <span className="font-semibold text-[#002559] text-base">{formatOwnerName(car.owner)}</span>
+                    </p>
+                  </div>
+                )}
                 <h2 className="font-semibold text-lg text-foreground mb-4">Descripción</h2>
                 <p className="text-muted-foreground leading-relaxed">
                   Vehículo {car.brand} {car.model} {car.version} del año {car.year} en excelente estado. Cuenta con{" "}
@@ -108,4 +115,10 @@ export default async function VehiclePage({ params }: VehiclePageProps) {
       <VehicleCTAMobile car={car} />
     </main>
   )
+}
+
+function formatOwnerName(name: string): string {
+  const parts = name.split(" ")
+  if (parts.length < 2) return name
+  return `${parts[0]} ${parts[1].charAt(0)}.`
 }
