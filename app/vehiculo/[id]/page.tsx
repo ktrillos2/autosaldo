@@ -96,7 +96,7 @@ export default async function VehiclePage({ params }: VehiclePageProps) {
                   {car.mileage?.toLocaleString()} km de recorrido, transmisión{" "}
                   {car.transmission === "AT" ? "automática" : car.transmission === "MT" ? "manual" : "CVT"} y motor a{" "}
                   {car.fuel?.toLowerCase()}. Ha pasado por nuestra inspección de 240 puntos garantizando su calidad y
-                  funcionamiento óptimo. Incluye {car.keys} {car.keys === 1 ? "llave" : "llaves"} y toda la
+                  funcionamiento óptimo. {car.keys ? `Incluye ${car.keys} ${car.keys === 1 ? "llave" : "llaves"} y t` : "T"}oda la
                   documentación en regla.
                 </p>
               </div>

@@ -60,11 +60,31 @@ export function ContactForm() {
 
     setIsLoading(true)
 
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 2000))
+    try {
+      const response = await fetch("/api/send", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          type: "contacto",
+          data: {
+            Nombre: formData.name,
+            Email: formData.email,
+            Telefono: formData.phone,
+            Asunto: formData.subject,
+            Mensaje: formData.message,
+          },
+        }),
+      })
 
-    setIsLoading(false)
-    setIsSuccess(true)
+      if (!response.ok) throw new Error("Error al enviar")
+
+      setIsSuccess(true)
+    } catch (error) {
+      console.error(error)
+      // Optional: set global error state
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   if (isSuccess) {

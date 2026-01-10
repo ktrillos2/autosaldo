@@ -21,6 +21,27 @@ import { contactoContent } from './contacto-content'
 import { auto } from './auto'
 import { autoUsuario } from './auto-usuario'
 
+import { globals } from './globals'
+
 export const schema: { types: SchemaTypeDefinition[] } = {
-  types: [hero, header, trust, featured, cta, footer, vendeHero, vendeProcess, vendeForm, vendeFaq, nosotrosHero, nosotrosStats, nosotrosInfo, contactoHero, contactoContent, auto, autoUsuario],
+  types: [
+    hero,
+    header,
+    trust,
+    featured,
+    cta,
+    footer,
+    vendeHero,
+    vendeProcess,
+    vendeForm,
+    vendeFaq,
+    nosotrosHero,
+    nosotrosStats,
+    nosotrosInfo,
+    contactoHero,
+    contactoContent,
+    auto,
+    autoUsuario,
+    globals,
+  ],
 }

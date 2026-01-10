@@ -1,6 +1,8 @@
 "use client"
 
 import { motion } from "framer-motion"
+import { client } from "@/sanity/lib/client" // Ensure this exists or use appropriate import
+import { useEffect, useState } from "react"
 
 interface WhatsAppButtonProps {
   carName?: string
@@ -8,7 +10,20 @@ interface WhatsAppButtonProps {
 }
 
 export function WhatsAppButton({ carName, sku }: WhatsAppButtonProps) {
-  const phoneNumber = "+51937385398"
+  const [phoneNumber, setPhoneNumber] = useState("51937385398") // Default number
+
+  useEffect(() => {
+    const fetchNumber = async () => {
+      try {
+        const data = await client.fetch(`*[_type == "globals"][0].whatsappNumber`)
+        if (data) setPhoneNumber(data)
+      } catch (error) {
+        console.error("Error fetching WhatsApp number:", error)
+      }
+    }
+    fetchNumber()
+  }, [])
+
   const message =
     carName && sku
       ? `Hola, estoy interesado en el ${carName} con SKU ${sku}`

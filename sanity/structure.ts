@@ -83,6 +83,9 @@ export const structure: StructureResolver = (S) =>
             .items([
               S.documentTypeListItem('header').title('Encabezado'),
               S.documentTypeListItem('footer').title('Pie de Página'),
+              S.listItem()
+                .title('Configuración (WhatsApp)')
+                .child(S.document().schemaType('globals').documentId('globals')),
             ])
         ),
     ])

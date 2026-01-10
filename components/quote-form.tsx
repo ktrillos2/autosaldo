@@ -1,7 +1,6 @@
 "use client"
 
 import { useState } from "react"
-import { motion } from "framer-motion"
 import { User, Phone, Mail, Car, MapPin, Calendar, Gauge, CreditCard, Fuel, MessageSquare } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -19,7 +18,37 @@ interface VendeFormContent {
 }
 
 export function QuoteForm({ content }: { content?: VendeFormContent }) {
-    const [formStep, setFormStep] = useState(1)
+    const [isLoading, setIsLoading] = useState(false)
+
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+        setIsLoading(true)
+        const formData = new FormData(e.currentTarget)
+
+        const data: any = {}
+        formData.forEach((value, key) => data[key] = value)
+
+        try {
+            const res = await fetch("/api/send", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ type: "cotizacion", data }),
+            })
+
+            if (res.ok) {
+                alert("Solicitud enviada con éxito. Te contactaremos pronto.")
+                // Reset form
+                e.currentTarget.reset()
+            } else {
+                alert("Hubo un error al enviar la solicitud.")
+            }
+        } catch (error) {
+            console.error("Error submitting form:", error)
+            alert("Hubo un error al enviar la solicitud.")
+        } finally {
+            setIsLoading(false)
+        }
+    }
 
     return (
         <section className="py-20 bg-white">
@@ -53,13 +82,13 @@ export function QuoteForm({ content }: { content?: VendeFormContent }) {
                             <p className="text-gray-500">{content?.formDescription || "Llena tus datos y los de tu vehículo."}</p>
                         </div>
 
-                        <form className="space-y-4">
+                        <form className="space-y-4" onSubmit={handleSubmit}>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 {/* Name */}
                                 <div className="space-y-2">
                                     <div className="relative">
                                         <User className="absolute left-3 top-3 h-5 w-5 text-[#d30826]" />
-                                        <Input placeholder="Nombres y Apellidos" className="pl-10 h-12 bg-gray-50 border-gray-200 focus:ring-[#002559]" />
+                                        <Input name="Nombre" required placeholder="Nombres y Apellidos" className="pl-10 h-12 bg-gray-50 border-gray-200 focus:ring-[#002559]" />
                                     </div>
                                 </div>
 
@@ -67,7 +96,7 @@ export function QuoteForm({ content }: { content?: VendeFormContent }) {
                                 <div className="space-y-2">
                                     <div className="relative">
                                         <Phone className="absolute left-3 top-3 h-5 w-5 text-[#d30826]" />
-                                        <Input placeholder="Celular de contacto" className="pl-10 h-12 bg-gray-50 border-gray-200 focus:ring-[#002559]" />
+                                        <Input name="Telefono" required placeholder="Celular de contacto" className="pl-10 h-12 bg-gray-50 border-gray-200 focus:ring-[#002559]" />
                                     </div>
                                 </div>
                             </div>
@@ -76,7 +105,7 @@ export function QuoteForm({ content }: { content?: VendeFormContent }) {
                             <div className="space-y-2">
                                 <div className="relative">
                                     <Mail className="absolute left-3 top-3 h-5 w-5 text-[#d30826]" />
-                                    <Input placeholder="Correo Electrónico" type="email" className="pl-10 h-12 bg-gray-50 border-gray-200 focus:ring-[#002559]" />
+                                    <Input name="Email" required placeholder="Correo Electrónico" type="email" className="pl-10 h-12 bg-gray-50 border-gray-200 focus:ring-[#002559]" />
                                 </div>
                             </div>
 
@@ -85,7 +114,7 @@ export function QuoteForm({ content }: { content?: VendeFormContent }) {
                                 <div className="space-y-2">
                                     <div className="relative">
                                         <Car className="absolute left-3 top-3 h-5 w-5 text-[#d30826]" />
-                                        <Input placeholder="Marca" className="pl-10 h-12 bg-gray-50 border-gray-200 focus:ring-[#002559]" />
+                                        <Input name="Marca" required placeholder="Marca" className="pl-10 h-12 bg-gray-50 border-gray-200 focus:ring-[#002559]" />
                                     </div>
                                 </div>
 
@@ -93,7 +122,7 @@ export function QuoteForm({ content }: { content?: VendeFormContent }) {
                                 <div className="space-y-2">
                                     <div className="relative">
                                         <span className="absolute left-3 top-3 h-5 w-5 text-[#d30826] font-bold flex items-center justify-center text-xs">M</span>
-                                        <Input placeholder="Modelo" className="pl-10 h-12 bg-gray-50 border-gray-200 focus:ring-[#002559]" />
+                                        <Input name="Modelo" required placeholder="Modelo" className="pl-10 h-12 bg-gray-50 border-gray-200 focus:ring-[#002559]" />
                                     </div>
                                 </div>
                             </div>
@@ -103,7 +132,7 @@ export function QuoteForm({ content }: { content?: VendeFormContent }) {
                                 <div className="space-y-2">
                                     <div className="relative">
                                         <Car className="absolute left-3 top-3 h-5 w-5 text-[#d30826]" />
-                                        <Input placeholder="Placa" className="pl-10 h-12 bg-gray-50 border-gray-200 focus:ring-[#002559]" />
+                                        <Input name="Placa" placeholder="Placa" className="pl-10 h-12 bg-gray-50 border-gray-200 focus:ring-[#002559]" />
                                     </div>
                                 </div>
 
@@ -111,7 +140,7 @@ export function QuoteForm({ content }: { content?: VendeFormContent }) {
                                 <div className="space-y-2">
                                     <div className="relative">
                                         <MapPin className="absolute left-3 top-3 h-5 w-5 text-[#d30826] z-10" />
-                                        <Select>
+                                        <Select name="Distrito">
                                             <SelectTrigger className="pl-10 h-12 bg-gray-50 border-gray-200">
                                                 <SelectValue placeholder="Selecciona tu distrito" />
                                             </SelectTrigger>
@@ -132,7 +161,7 @@ export function QuoteForm({ content }: { content?: VendeFormContent }) {
                                 <div className="space-y-2">
                                     <div className="relative">
                                         <Calendar className="absolute left-3 top-3 h-5 w-5 text-[#d30826] z-10" />
-                                        <Select>
+                                        <Select name="Anio">
                                             <SelectTrigger className="pl-10 h-12 bg-gray-50 border-gray-200">
                                                 <SelectValue placeholder="Año" />
                                             </SelectTrigger>
@@ -149,7 +178,7 @@ export function QuoteForm({ content }: { content?: VendeFormContent }) {
                                 <div className="space-y-2">
                                     <div className="relative">
                                         <Gauge className="absolute left-3 top-3 h-5 w-5 text-[#d30826]" />
-                                        <Input placeholder="Kilometraje" className="pl-10 h-12 bg-gray-50 border-gray-200 focus:ring-[#002559]" />
+                                        <Input name="Kilometraje" placeholder="Kilometraje" className="pl-10 h-12 bg-gray-50 border-gray-200 focus:ring-[#002559]" />
                                     </div>
                                 </div>
                             </div>
@@ -159,7 +188,7 @@ export function QuoteForm({ content }: { content?: VendeFormContent }) {
                                 <div className="space-y-2">
                                     <div className="relative">
                                         <Fuel className="absolute left-3 top-3 h-5 w-5 text-[#d30826] z-10" />
-                                        <Select>
+                                        <Select name="Combustible">
                                             <SelectTrigger className="pl-10 h-12 bg-gray-50 border-gray-200">
                                                 <SelectValue placeholder="Combustible" />
                                             </SelectTrigger>
@@ -177,7 +206,7 @@ export function QuoteForm({ content }: { content?: VendeFormContent }) {
                                 <div className="space-y-2">
                                     <div className="relative">
                                         <CreditCard className="absolute left-3 top-3 h-5 w-5 text-[#d30826] z-10" />
-                                        <Select>
+                                        <Select name="Deuda">
                                             <SelectTrigger className="pl-10 h-12 bg-gray-50 border-gray-200">
                                                 <SelectValue placeholder="¿Tiene Deuda?" />
                                             </SelectTrigger>
@@ -194,13 +223,13 @@ export function QuoteForm({ content }: { content?: VendeFormContent }) {
                             <div className="space-y-2">
                                 <div className="relative">
                                     <MessageSquare className="absolute left-3 top-3 h-5 w-5 text-[#d30826]" />
-                                    <Textarea placeholder="Mensaje" className="pl-10 min-h-[100px] bg-gray-50 border-gray-200 focus:ring-[#002559] resize-none" />
+                                    <Textarea name="Mensaje" placeholder="Mensaje" className="pl-10 min-h-[100px] bg-gray-50 border-gray-200 focus:ring-[#002559] resize-none" />
                                 </div>
                             </div>
 
                             <div className="flex justify-end pt-4">
-                                <Button className="bg-[#5e6d8a] hover:bg-[#002559] text-white px-8 py-6 text-lg rounded-xl transition-colors">
-                                    {content?.buttonText || "Siguiente"}
+                                <Button disabled={isLoading} className="bg-[#5e6d8a] hover:bg-[#002559] text-white px-8 py-6 text-lg rounded-xl transition-colors">
+                                    {isLoading ? "Enviando..." : (content?.buttonText || "Siguiente")}
                                 </Button>
                             </div>
                         </form>

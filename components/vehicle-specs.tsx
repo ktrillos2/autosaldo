@@ -8,19 +8,20 @@ interface VehicleSpecsProps {
 
 export function VehicleSpecs({ car }: VehicleSpecsProps) {
   const specs = [
-    { icon: Calendar, label: "Año", value: car.year.toString() },
-    { icon: Gauge, label: "Kilometraje", value: `${formatMileage(car.mileage)} km` },
+    { icon: Calendar, label: "Año", value: car.year?.toString() || "N/A" },
+    { icon: Gauge, label: "Kilometraje", value: `${formatMileage(car.mileage || 0)} km` },
     {
       icon: Settings,
       label: "Transmisión",
       value: car.transmission === "AT" ? "Automática" : car.transmission === "MT" ? "Manual" : "CVT",
     },
-    { icon: Fuel, label: "Combustible", value: car.fuel },
-    { icon: Hash, label: "SKU", value: car.sku },
-    { icon: Zap, label: "Cilindrada", value: `${car.cc} cc` },
-    { icon: Zap, label: "Potencia", value: `${car.hp} HP` },
-    { icon: Droplets, label: "Consumo aprox.", value: `${car.consumption} km/gl` },
-    { icon: Key, label: "Número de llaves", value: car.keys.toString() },
+    { icon: Fuel, label: "Combustible", value: car.fuel || "N/A" },
+    // Only include optional fields if they exist
+    ...(car.sku ? [{ icon: Hash, label: "SKU", value: car.sku }] : []),
+    ...(car.cc ? [{ icon: Zap, label: "Cilindrada", value: `${car.cc} cc` }] : []),
+    ...(car.hp ? [{ icon: Zap, label: "Potencia", value: `${car.hp} HP` }] : []),
+    ...(car.consumption ? [{ icon: Droplets, label: "Consumo aprox.", value: `${car.consumption} km/gl` }] : []),
+    ...(car.keys !== undefined ? [{ icon: Key, label: "Número de llaves", value: car.keys.toString() }] : []),
   ]
 
   return (

@@ -9,7 +9,6 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/co
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import { Badge } from "@/components/ui/badge"
 import { SlidersHorizontal, X } from "lucide-react"
-import { brands, categories, transmissions, fuels } from "@/lib/data"
 
 export interface Filters {
   brands: string[]
@@ -24,15 +23,25 @@ export interface Filters {
   mileageMax: string
 }
 
+export interface FilterOptions {
+  brands: string[]
+  categories: string[]
+  transmissions: string[]
+  fuels: string[]
+}
+
 interface ShowroomFiltersProps {
   filters: Filters
   onFiltersChange: (filters: Filters) => void
   onClearFilters: () => void
   totalResults: number
+  options?: FilterOptions
 }
 
-export function ShowroomFilters({ filters, onFiltersChange, onClearFilters, totalResults }: ShowroomFiltersProps) {
+export function ShowroomFilters({ filters, onFiltersChange, onClearFilters, totalResults, options }: ShowroomFiltersProps) {
   const [isOpen, setIsOpen] = useState(false)
+  const defaultOptions = { brands: [], categories: [], transmissions: [], fuels: [] }
+  const { brands, categories, transmissions, fuels } = options || defaultOptions
 
   const activeFiltersCount =
     filters.brands.length +

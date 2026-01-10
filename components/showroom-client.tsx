@@ -28,8 +28,16 @@ export function ShowroomClient({ cars }: { cars: any[] }) {
     const [sort, setSort] = useState<SortOption>("relevance")
     const [search, setSearch] = useState("")
 
+    const options = useMemo(() => {
+        const brands = Array.from(new Set(cars?.map((c) => c.brand).filter(Boolean))) as string[]
+        const categories = Array.from(new Set(cars?.map((c) => c.category).filter(Boolean))) as string[]
+        const transmissions = Array.from(new Set(cars?.map((c) => c.transmission).filter(Boolean))) as string[]
+        const fuels = Array.from(new Set(cars?.map((c) => c.fuel).filter(Boolean))) as string[]
+        return { brands, categories, transmissions, fuels }
+    }, [cars])
+
     const filteredCars = useMemo(() => {
-        let result = [...cars]
+        let result = [...(cars || [])]
 
         // Search filter
         if (search) {
@@ -156,6 +164,7 @@ export function ShowroomClient({ cars }: { cars: any[] }) {
                                     filters={filters}
                                     onFiltersChange={setFilters}
                                     onClearFilters={() => setFilters(initialFiltersState)}
+                                    options={options}
                                     totalResults={filteredCars.length}
                                 />
                             </div>
@@ -170,6 +179,7 @@ export function ShowroomClient({ cars }: { cars: any[] }) {
                             filters={filters}
                             onFiltersChange={setFilters}
                             onClearFilters={() => setFilters(initialFiltersState)}
+                            options={options}
                             totalResults={filteredCars.length}
                         />
 

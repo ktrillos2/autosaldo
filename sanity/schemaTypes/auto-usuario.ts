@@ -32,13 +32,13 @@ export const autoUsuario = defineType({
             title: 'Teléfono',
             type: 'string',
         }),
-        defineField({
-            name: 'contactEmail',
-            title: 'Email',
-            type: 'string',
-        }),
+        defineField({ name: 'contactEmail', title: 'Email', type: 'string' }),
+        defineField({ name: 'district', title: 'Distrito', type: 'string' }),
+        defineField({ name: 'message', title: 'Mensaje del Usuario', type: 'text' }),
 
         // Car Fields (Simplified copy of main schema)
+        defineField({ name: 'plate', title: 'Placa', type: 'string' }),
+        defineField({ name: 'debt', title: '¿Tiene Deuda?', type: 'string' }),
         defineField({ name: 'brand', title: 'Marca', type: 'string' }),
         defineField({ name: 'model', title: 'Modelo', type: 'string' }),
         defineField({ name: 'version', title: 'Versión', type: 'string' }),
