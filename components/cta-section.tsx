@@ -5,7 +5,80 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { ArrowRight, Zap, CarFront, ShieldCheck, Banknote, CheckCircle2, MessageCircle, ClipboardCheck, Camera, UserCheck, FileSignature } from "lucide-react"
 
-export function CTASection() {
+const iconsMap: Record<string, any> = {
+  Zap,
+  CarFront,
+  ShieldCheck,
+  Banknote,
+  CheckCircle2,
+  MessageCircle,
+  ClipboardCheck,
+  Camera,
+  UserCheck,
+  FileSignature,
+}
+
+const defaultBenefits = [
+  { iconName: "Zap", title: "60 seg", desc: "Cotización rápida" },
+  { iconName: "ShieldCheck", title: "100%", desc: "Proceso seguro" },
+  { iconName: "CarFront", title: "Gratis", desc: "Recojo a domicilio" },
+  { iconName: "Banknote", title: "Mejor", desc: "Precio del mercado" },
+]
+
+const defaultProcessSteps = [
+  {
+    iconName: "MessageCircle",
+    step: "01",
+    title: "Contacto",
+    desc: "Envíanos los datos básicos.",
+  },
+  {
+    iconName: "ClipboardCheck",
+    step: "02",
+    title: "Tasación",
+    desc: "Evaluamos tu auto a domicilio.",
+  },
+  {
+    iconName: "Camera",
+    step: "03",
+    title: "Publicación",
+    desc: "Fotos profesionales y difusión.",
+  },
+  {
+    iconName: "UserCheck",
+    step: "04",
+    title: "Gestión",
+    desc: "Filtramos compradores reales.",
+  },
+  {
+    iconName: "FileSignature",
+    step: "05",
+    title: "Venta",
+    desc: "Trámite notarial seguro.",
+  },
+]
+
+interface CTAContent {
+  overline?: string
+  title?: string
+  highlight?: string
+  description?: string
+  ctaText?: string
+  ctaLink?: string
+  benefits?: { iconName: string; title: string; desc: string }[]
+  processSteps?: { iconName: string; step: string; title: string; desc: string }[]
+}
+
+export function CTASection({ content }: { content?: CTAContent }) {
+  const overline = content?.overline || "SERVICIO DE VENTA ASISTIDA"
+  const title = content?.title || "Tú pones el vehículo."
+  const highlight = content?.highlight || "Nosotros nos encargamos de venderlo."
+  const description = content?.description || "En Autosaldo te ayudamos a vender tu vehículo de forma segura, ordenada y sin complicaciones. Nos encargamos de todo el proceso para que no pierdas tiempo atendiendo interesados ni negociando sin respaldo."
+  const ctaText = content?.ctaText || "Cotizar mi Auto Ahora"
+  const ctaLink = content?.ctaLink || "/cotizador"
+  const benefits = content?.benefits || defaultBenefits
+  const processSteps = content?.processSteps || defaultProcessSteps
+
   return (
     <section className="py-24 md:py-32 relative overflow-hidden bg-slate-50">
       {/* Fondo Gradiente */}
@@ -26,7 +99,7 @@ export function CTASection() {
               className="inline-flex items-center gap-3 text-primary text-sm font-semibold tracking-widest uppercase mb-6"
             >
               <span className="w-12 h-px bg-primary" />
-              SERVICIO DE VENTA ASISTIDA
+              {overline}
               <span className="w-12 h-px bg-primary" />
             </motion.span>
 
@@ -37,9 +110,9 @@ export function CTASection() {
               transition={{ delay: 0.1 }}
               className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#002559] mb-6 leading-tight"
             >
-              Tú pones el vehículo.
+              {title}
               <br />
-              <span className="text-[#d30826]">Nosotros nos encargamos de venderlo.</span>
+              <span className="text-[#d30826]">{highlight}</span>
             </motion.h2>
 
             <motion.p
@@ -49,7 +122,7 @@ export function CTASection() {
               transition={{ delay: 0.2 }}
               className="text-lg text-gray-600 max-w-2xl mx-auto"
             >
-              En Autosaldo te ayudamos a vender tu vehículo de forma segura, ordenada y sin complicaciones. Nos encargamos de todo el proceso para que no pierdas tiempo atendiendo interesados ni negociando sin respaldo.
+              {description}
             </motion.p>
           </div>
 
@@ -61,30 +134,27 @@ export function CTASection() {
             transition={{ delay: 0.3 }}
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16"
           >
-            {[
-              { icon: Zap, title: "60 seg", desc: "Cotización rápida" },
-              { icon: ShieldCheck, title: "100%", desc: "Proceso seguro" },
-              { icon: CarFront, title: "Gratis", desc: "Recojo a domicilio" },
-              { icon: Banknote, title: "Mejor", desc: "Precio del mercado" },
-            ].map((item, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.3 + i * 0.1 }}
-                className="bg-white border border-gray-200 shadow-lg shadow-gray-200/50 rounded-2xl p-6 text-center hover:-translate-y-1 transition-all duration-300"
-              >
-                <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-4">
-                  <item.icon className="w-7 h-7 text-primary" />
-                </div>
-                <p className="text-2xl font-bold text-[#002559] mb-1">{item.title}</p>
-                <p className="text-sm text-gray-500">{item.desc}</p>
-              </motion.div>
-            ))}
+            {benefits.map((item, i) => {
+              const IconComponent = iconsMap[item.iconName] || Zap
+              return (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.3 + i * 0.1 }}
+                  className="bg-white border border-gray-200 shadow-lg shadow-gray-200/50 rounded-2xl p-6 text-center hover:-translate-y-1 transition-all duration-300"
+                >
+                  <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-4">
+                    <IconComponent className="w-7 h-7 text-primary" />
+                  </div>
+                  <p className="text-2xl font-bold text-[#002559] mb-1">{item.title}</p>
+                  <p className="text-sm text-gray-500">{item.desc}</p>
+                </motion.div>
+              )
+            })}
           </motion.div>
 
-          {/* Proceso simplificado */}
           {/* Proceso simplificado */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -94,47 +164,19 @@ export function CTASection() {
             className="mb-16"
           >
             <div className="grid md:grid-cols-3 lg:grid-cols-5 gap-4">
-              {[
-                {
-                  icon: MessageCircle,
-                  step: "01",
-                  title: "Contacto",
-                  desc: "Envíanos los datos básicos.",
-                },
-                {
-                  icon: ClipboardCheck,
-                  step: "02",
-                  title: "Tasación",
-                  desc: "Evaluamos tu auto a domicilio.",
-                },
-                {
-                  icon: Camera,
-                  step: "03",
-                  title: "Publicación",
-                  desc: "Fotos profesionales y difusión.",
-                },
-                {
-                  icon: UserCheck,
-                  step: "04",
-                  title: "Gestión",
-                  desc: "Filtramos compradores reales.",
-                },
-                {
-                  icon: FileSignature,
-                  step: "05",
-                  title: "Venta",
-                  desc: "Trámite notarial seguro.",
-                },
-              ].map((item, i) => (
-                <div key={i} className="relative group bg-white border border-gray-100 rounded-2xl p-6 hover:shadow-lg transition-all duration-300 text-center">
-                  <div className="w-12 h-12 mx-auto bg-primary/5 rounded-full flex items-center justify-center mb-4 group-hover:bg-[#d30826]/10 transition-colors">
-                    <item.icon className="w-6 h-6 text-[#002559] group-hover:text-[#d30826] transition-colors" />
+              {processSteps.map((item, i) => {
+                const IconComponent = iconsMap[item.iconName] || MessageCircle
+                return (
+                  <div key={i} className="relative group bg-white border border-gray-100 rounded-2xl p-6 hover:shadow-lg transition-all duration-300 text-center">
+                    <div className="w-12 h-12 mx-auto bg-primary/5 rounded-full flex items-center justify-center mb-4 group-hover:bg-[#d30826]/10 transition-colors">
+                      <IconComponent className="w-6 h-6 text-[#002559] group-hover:text-[#d30826] transition-colors" />
+                    </div>
+                    <div className="absolute top-4 right-4 text-xs font-bold text-gray-200">{item.step}</div>
+                    <h3 className="font-bold text-[#002559] mb-2">{item.title}</h3>
+                    <p className="text-sm text-gray-500 leading-snug">{item.desc}</p>
                   </div>
-                  <div className="absolute top-4 right-4 text-xs font-bold text-gray-200">{item.step}</div>
-                  <h3 className="font-bold text-[#002559] mb-2">{item.title}</h3>
-                  <p className="text-sm text-gray-500 leading-snug">{item.desc}</p>
-                </div>
-              ))}
+                )
+              })}
             </div>
           </motion.div>
 

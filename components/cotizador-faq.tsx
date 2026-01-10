@@ -2,7 +2,17 @@
 
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 
-const faqs = [
+interface Question {
+  question: string
+  answer: string
+}
+
+interface VendeFaqContent {
+  title?: string
+  faqs?: Question[]
+}
+
+const defaultFaqs = [
   {
     question: "¿Hay algún tipo de restricciones para vender mi vehículo?",
     answer: "Aceptamos vehículos con menos de 10 años de antigüedad y menos de 100,000 kilómetros de recorrido.",
@@ -43,13 +53,15 @@ const faqs = [
   },
 ]
 
-export function CotizadorFAQ() {
+export function CotizadorFAQ({ content }: { content?: VendeFaqContent }) {
+  const faqs = content?.faqs || defaultFaqs
+
   return (
     <section className="py-16 bg-secondary">
       <div className="container mx-auto px-4">
         <div className="max-w-3xl mx-auto">
           <h2 className="font-serif text-2xl md:text-3xl font-bold text-foreground mb-8 text-center">
-            Preguntas Frecuentes
+            {content?.title || "Preguntas Frecuentes"}
           </h2>
 
           <Accordion type="single" collapsible className="space-y-2">

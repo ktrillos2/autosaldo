@@ -1,8 +1,35 @@
 import Link from "next/link"
 import Image from "next/image"
-import { Phone, Mail, MapPin, Instagram, Facebook } from "lucide-react"
+import { Phone, Mail, MapPin, Instagram, Facebook, Twitter, Linkedin, Youtube } from "lucide-react"
 
-export function Footer() {
+const iconMap: Record<string, any> = {
+  Instagram,
+  Facebook,
+  Twitter,
+  Linkedin,
+  Youtube
+}
+
+interface FooterContent {
+  companyDescription?: string
+  address?: string
+  email?: string
+  phoneNumber?: string
+  socialLinks?: { platform: string; url: string }[]
+  copyrightText?: string
+}
+
+export function Footer({ content }: { content?: FooterContent }) {
+  const companyDescription = content?.companyDescription || "Tu concesionario de confianza. Autos seminuevos certificados con garantía y el mejor servicio."
+  const address = content?.address || "Av. Javier Prado Este 4200, Lima, Perú"
+  const email = content?.email || "info@Autosaldo.pe"
+  const phoneNumber = content?.phoneNumber || "+51 937 385 398"
+  const copyrightText = content?.copyrightText || "Autosaldo. Todos los derechos reservados."
+  const socialLinks = content?.socialLinks || [
+    { platform: "Instagram", url: "https://instagram.com" },
+    { platform: "Facebook", url: "https://facebook.com" },
+  ]
+
   return (
     <footer className="bg-foreground text-background">
       <div className="container mx-auto px-4 py-12 md:py-16">
@@ -18,7 +45,7 @@ export function Footer() {
               />
             </Link>
             <p className="text-background/70 text-sm leading-relaxed">
-              Tu concesionario de confianza. Autos seminuevos certificados con garantía y el mejor servicio.
+              {companyDescription}
             </p>
           </div>
 
@@ -53,15 +80,15 @@ export function Footer() {
             <ul className="space-y-3">
               <li className="flex items-center gap-2 text-sm text-background/70">
                 <Phone className="w-4 h-4 shrink-0" />
-                <span>+51 937 385 398</span>
+                <span>{phoneNumber}</span>
               </li>
               <li className="flex items-center gap-2 text-sm text-background/70">
                 <Mail className="w-4 h-4 shrink-0" />
-                <span>info@Autosaldo.pe</span>
+                <span>{email}</span>
               </li>
               <li className="flex items-start gap-2 text-sm text-background/70">
                 <MapPin className="w-4 h-4 shrink-0 mt-0.5" />
-                <span>Av. Javier Prado Este 4200, Lima, Perú</span>
+                <span>{address}</span>
               </li>
             </ul>
           </div>
@@ -69,31 +96,37 @@ export function Footer() {
           <div>
             <h4 className="font-semibold mb-4">Síguenos</h4>
             <div className="flex items-center gap-4">
-              <a
-                href="https://instagram.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-10 h-10 bg-background/10 rounded-lg flex items-center justify-center hover:bg-background/20 transition-colors"
-                aria-label="Instagram"
-              >
-                <Instagram className="w-5 h-5" />
-              </a>
-              <a
-                href="https://facebook.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-10 h-10 bg-background/10 rounded-lg flex items-center justify-center hover:bg-background/20 transition-colors"
-                aria-label="Facebook"
-              >
-                <Facebook className="w-5 h-5" />
-              </a>
+              {socialLinks.map((link, idx) => {
+                const Icon = iconMap[link.platform] || Facebook // Default fallback
+                return (
+                  <a
+                    key={idx}
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-10 h-10 bg-background/10 rounded-lg flex items-center justify-center hover:bg-background/20 transition-colors"
+                    aria-label={link.platform}
+                  >
+                    <Icon className="w-5 h-5" />
+                  </a>
+                )
+              })}
             </div>
           </div>
         </div>
 
         <div className="mt-12 pt-8 border-t border-background/10 text-center">
-          <p className="text-sm text-background/50">
-            © {new Date().getFullYear()} Autosaldo. Todos los derechos reservados.
+          <p className="text-sm text-background/50 flex flex-col md:flex-row items-center justify-center gap-2">
+            <span>© {new Date().getFullYear()} {copyrightText}</span>
+            <span className="hidden md:inline">|</span>
+            <a
+              href="https://www.kytcode.lat"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1 hover:text-white transition-colors cursor-pointer font-medium"
+            >
+              Desarrollado por K&T 🖤
+            </a>
           </p>
         </div>
       </div>

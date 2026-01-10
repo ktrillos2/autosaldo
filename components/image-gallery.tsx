@@ -16,11 +16,15 @@ export function ImageGallery({ images, alt }: ImageGalleryProps) {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isLightboxOpen, setIsLightboxOpen] = useState(false)
 
+  const hasMultipleImages = images.length > 1
+
   const goToPrevious = () => {
+    if (!hasMultipleImages) return
     setCurrentIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1))
   }
 
   const goToNext = () => {
+    if (!hasMultipleImages) return
     setCurrentIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1))
   }
 
@@ -49,20 +53,24 @@ export function ImageGallery({ images, alt }: ImageGalleryProps) {
           </AnimatePresence>
 
           {/* Navigation Arrows */}
-          <button
-            onClick={goToPrevious}
-            className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-background/80 backdrop-blur-sm rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-background"
-            aria-label="Imagen anterior"
-          >
-            <ChevronLeft className="w-5 h-5" />
-          </button>
-          <button
-            onClick={goToNext}
-            className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-background/80 backdrop-blur-sm rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-background"
-            aria-label="Siguiente imagen"
-          >
-            <ChevronRight className="w-5 h-5" />
-          </button>
+          {hasMultipleImages && (
+            <>
+              <button
+                onClick={goToPrevious}
+                className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-background/80 backdrop-blur-sm rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-background"
+                aria-label="Imagen anterior"
+              >
+                <ChevronLeft className="w-5 h-5" />
+              </button>
+              <button
+                onClick={goToNext}
+                className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-background/80 backdrop-blur-sm rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-background"
+                aria-label="Siguiente imagen"
+              >
+                <ChevronRight className="w-5 h-5" />
+              </button>
+            </>
+          )}
 
           {/* Zoom Button */}
           <button
@@ -74,30 +82,33 @@ export function ImageGallery({ images, alt }: ImageGalleryProps) {
           </button>
 
           {/* Image Counter */}
-          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 px-3 py-1.5 bg-background/80 backdrop-blur-sm rounded-full text-sm font-medium">
-            {currentIndex + 1} / {images.length}
-          </div>
+          {hasMultipleImages && (
+            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 px-3 py-1.5 bg-background/80 backdrop-blur-sm rounded-full text-sm font-medium">
+              {currentIndex + 1} / {images.length}
+            </div>
+          )}
         </div>
 
         {/* Thumbnails */}
-        <div className="flex gap-2 overflow-x-auto pb-2">
-          {images.map((image, index) => (
-            <button
-              key={index}
-              onClick={() => setCurrentIndex(index)}
-              className={`relative w-20 h-20 rounded-lg overflow-hidden shrink-0 transition-all ${
-                index === currentIndex ? "ring-2 ring-primary ring-offset-2" : "opacity-60 hover:opacity-100"
-              }`}
-            >
-              <Image
-                src={image || "/placeholder.svg"}
-                alt={`${alt} - Miniatura ${index + 1}`}
-                fill
-                className="object-cover"
-              />
-            </button>
-          ))}
-        </div>
+        {hasMultipleImages && (
+          <div className="flex gap-2 overflow-x-auto pb-2">
+            {images.map((image, index) => (
+              <button
+                key={index}
+                onClick={() => setCurrentIndex(index)}
+                className={`relative w-20 h-20 rounded-lg overflow-hidden shrink-0 transition-all ${index === currentIndex ? "ring-2 ring-primary ring-offset-2" : "opacity-60 hover:opacity-100"
+                  }`}
+              >
+                <Image
+                  src={image || "/placeholder.svg"}
+                  alt={`${alt} - Miniatura ${index + 1}`}
+                  fill
+                  className="object-cover"
+                />
+              </button>
+            ))}
+          </div>
+        )}
       </div>
 
       {/* Lightbox */}

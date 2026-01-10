@@ -7,8 +7,9 @@ import { usePathname } from "next/navigation"
 import { motion, AnimatePresence } from "framer-motion"
 import { Menu, X, Phone, ArrowUpRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { urlFor } from "@/sanity/lib/image"
 
-const navLinks = [
+const defaultNavLinks = [
   { href: "/", label: "Inicio" },
   { href: "/showroom", label: "Autos" },
   { href: "/cotizador", label: "Vende tu Auto" },
@@ -16,10 +17,28 @@ const navLinks = [
   { href: "/contacto", label: "Contacto" },
 ]
 
-export function Header() {
+interface HeaderContent {
+  logo?: any
+  navLinks?: { label: string; href: string }[]
+  phoneNumber?: string
+  ctaText?: string
+  ctaLink?: string
+}
+
+export function Header({ content }: { content?: HeaderContent }) {
   const [isOpen, setIsOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const pathname = usePathname()
+
+  if (pathname.startsWith("/admin") || pathname.startsWith("/studio")) {
+    return null
+  }
+
+  const navLinks = content?.navLinks || defaultNavLinks
+  const logoSrc = content?.logo ? urlFor(content.logo).url() : "/logo.png"
+  const phoneNumber = content?.phoneNumber || "937 385 398"
+  const ctaText = content?.ctaText || "Ver Autos"
+  const ctaLink = content?.ctaLink || "/showroom"
 
   useEffect(() => {
     const handleScroll = () => {
@@ -43,7 +62,7 @@ export function Header() {
             <Link href="/" className="group flex items-center gap-2" prefetch={true}>
               <div className="relative flex items-center">
                 <Image
-                  src="/logo.png"
+                  src={logoSrc}
                   alt="Autosaldo"
                   width={300}
                   height={85}
@@ -84,12 +103,12 @@ export function Header() {
             {/* CTA desktop */}
             <div className="hidden lg:flex items-center gap-4">
               <Link
-                href="tel:+51937385398"
+                href={`tel:+51${phoneNumber.replace(/\s/g, "")}`}
                 className={`flex items-center gap-2 text-sm font-medium transition-colors duration-300 ${scrolled ? "text-white/70 hover:text-white" : "text-white/70 hover:text-white"
                   }`}
               >
                 <Phone className="w-4 h-4" />
-                937 385 398
+                {phoneNumber}
               </Link>
               <Button
                 asChild
@@ -98,8 +117,8 @@ export function Header() {
                   : "bg-white text-accent hover:bg-white/90"
                   }`}
               >
-                <Link href="/showroom" prefetch={true}>
-                  Ver Autos
+                <Link href={ctaLink} prefetch={true}>
+                  {ctaText}
                   <ArrowUpRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                 </Link>
               </Button>

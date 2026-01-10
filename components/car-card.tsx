@@ -14,14 +14,22 @@ interface CarCardProps {
   index?: number
 }
 
+import { urlFor } from "@/sanity/lib/image"
+
+// ...
+
 export function CarCard({ car, index = 0 }: CarCardProps) {
+  const imageUrl = car.images?.[0]
+    ? (typeof car.images[0] === 'string' ? car.images[0] : urlFor(car.images[0]).url())
+    : "/placeholder.svg"
+
   return (
     <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: index * 0.05 }}>
-      <Link href={`/vehiculo/${car.id}`}>
-        <Card className="group overflow-hidden border-0 shadow-sm hover:shadow-xl transition-all duration-300 bg-card">
+      <Link href={`/vehiculo/${car._id || car.id}`}>
+        <Card className="group overflow-hidden border-0 shadow-sm hover:shadow-xl transition-all duration-300 bg-card p-0 gap-0">
           <div className="relative aspect-[4/3] overflow-hidden">
             <Image
-              src={car.images[0] || "/placeholder.svg"}
+              src={imageUrl}
               alt={`${car.brand} ${car.model}`}
               fill
               className="object-cover group-hover:scale-105 transition-transform duration-500"

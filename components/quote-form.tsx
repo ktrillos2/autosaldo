@@ -2,14 +2,23 @@
 
 import { useState } from "react"
 import { motion } from "framer-motion"
-import { User, Phone, Mail, Car, MapPin, Calendar, Gauge, CreditCard, ChevronDown } from "lucide-react"
+import { User, Phone, Mail, Car, MapPin, Calendar, Gauge, CreditCard, Fuel, MessageSquare } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import Image from "next/image"
 
-export function QuoteForm() {
+interface VendeFormContent {
+    bannerTitle?: string
+    bannerSubtitle?: string
+    bannerDescription?: string
+    formTitle?: string
+    formDescription?: string
+    buttonText?: string
+}
+
+export function QuoteForm({ content }: { content?: VendeFormContent }) {
     const [formStep, setFormStep] = useState(1)
 
     return (
@@ -28,11 +37,11 @@ export function QuoteForm() {
                         <div className="absolute inset-0 bg-gradient-to-t from-[#002559] taking-50 to-transparent" />
                         <div className="absolute bottom-0 left-0 p-8 md:p-12 z-10 text-white">
                             <h3 className="text-4xl font-bold leading-tight mb-2">
-                                COMPRAMOS TU AUTO
-                                <span className="block text-[#d30826] text-5xl">30 MINUTOS</span>
+                                {content?.bannerTitle || "COMPRAMOS TU AUTO"}
+                                <span className="block text-[#d30826] text-5xl">{content?.bannerSubtitle || "30 MINUTOS"}</span>
                             </h3>
                             <p className="text-white/80 mt-4">
-                                Evaluación rápida, justa y segura. Olvídate de los trámites.
+                                {content?.bannerDescription || "Evaluación rápida, justa y segura. Olvídate de los trámites."}
                             </p>
                         </div>
                     </div>
@@ -40,16 +49,16 @@ export function QuoteForm() {
                     {/* Right Column: Form */}
                     <div className="lg:w-3/5 p-8 md:p-12">
                         <div className="mb-10">
-                            <h2 className="text-3xl font-bold text-[#002559] mb-2 uppercase">Déjanos tus datos</h2>
-                            <p className="text-gray-500">Llena tus datos y los de tu vehículo.</p>
+                            <h2 className="text-3xl font-bold text-[#002559] mb-2 uppercase">{content?.formTitle || "Déjanos tus datos"}</h2>
+                            <p className="text-gray-500">{content?.formDescription || "Llena tus datos y los de tu vehículo."}</p>
                         </div>
 
-                        <form className="space-y-6">
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <form className="space-y-4">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 {/* Name */}
                                 <div className="space-y-2">
                                     <div className="relative">
-                                        <User className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
+                                        <User className="absolute left-3 top-3 h-5 w-5 text-[#d30826]" />
                                         <Input placeholder="Nombres y Apellidos" className="pl-10 h-12 bg-gray-50 border-gray-200 focus:ring-[#002559]" />
                                     </div>
                                 </div>
@@ -71,7 +80,7 @@ export function QuoteForm() {
                                 </div>
                             </div>
 
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 {/* Brand */}
                                 <div className="space-y-2">
                                     <div className="relative">
@@ -89,7 +98,7 @@ export function QuoteForm() {
                                 </div>
                             </div>
 
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 {/* Plate */}
                                 <div className="space-y-2">
                                     <div className="relative">
@@ -100,34 +109,40 @@ export function QuoteForm() {
 
                                 {/* District */}
                                 <div className="space-y-2">
-                                    <Select>
-                                        <SelectTrigger className="h-12 bg-gray-50 border-gray-200">
-                                            <SelectValue placeholder="Selecciona tu distrito" />
-                                        </SelectTrigger>
-                                        <SelectContent>
-                                            <SelectItem value="lima">Lima</SelectItem>
-                                            <SelectItem value="miraflores">Miraflores</SelectItem>
-                                            <SelectItem value="san-isidro">San Isidro</SelectItem>
-                                            <SelectItem value="surco">Santiago de Surco</SelectItem>
-                                            <SelectItem value="la-molina">La Molina</SelectItem>
-                                        </SelectContent>
-                                    </Select>
+                                    <div className="relative">
+                                        <MapPin className="absolute left-3 top-3 h-5 w-5 text-[#d30826] z-10" />
+                                        <Select>
+                                            <SelectTrigger className="pl-10 h-12 bg-gray-50 border-gray-200">
+                                                <SelectValue placeholder="Selecciona tu distrito" />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                <SelectItem value="lima">Lima</SelectItem>
+                                                <SelectItem value="miraflores">Miraflores</SelectItem>
+                                                <SelectItem value="san-isidro">San Isidro</SelectItem>
+                                                <SelectItem value="surco">Santiago de Surco</SelectItem>
+                                                <SelectItem value="la-molina">La Molina</SelectItem>
+                                            </SelectContent>
+                                        </Select>
+                                    </div>
                                 </div>
                             </div>
 
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 {/* Year */}
                                 <div className="space-y-2">
-                                    <Select>
-                                        <SelectTrigger className="h-12 bg-gray-50 border-gray-200">
-                                            <SelectValue placeholder="Año" />
-                                        </SelectTrigger>
-                                        <SelectContent>
-                                            {Array.from({ length: 20 }, (_, i) => new Date().getFullYear() - i).map((year) => (
-                                                <SelectItem key={year} value={year.toString()}>{year}</SelectItem>
-                                            ))}
-                                        </SelectContent>
-                                    </Select>
+                                    <div className="relative">
+                                        <Calendar className="absolute left-3 top-3 h-5 w-5 text-[#d30826] z-10" />
+                                        <Select>
+                                            <SelectTrigger className="pl-10 h-12 bg-gray-50 border-gray-200">
+                                                <SelectValue placeholder="Año" />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                {Array.from({ length: 20 }, (_, i) => new Date().getFullYear() - i).map((year) => (
+                                                    <SelectItem key={year} value={year.toString()}>{year}</SelectItem>
+                                                ))}
+                                            </SelectContent>
+                                        </Select>
+                                    </div>
                                 </div>
 
                                 {/* Mileage */}
@@ -137,47 +152,57 @@ export function QuoteForm() {
                                         <Input placeholder="Kilometraje" className="pl-10 h-12 bg-gray-50 border-gray-200 focus:ring-[#002559]" />
                                     </div>
                                 </div>
+                            </div>
 
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 {/* Fuel Type */}
                                 <div className="space-y-2">
-                                    <Select>
-                                        <SelectTrigger className="h-12 bg-gray-50 border-gray-200">
-                                            <SelectValue placeholder="Combustible" />
-                                        </SelectTrigger>
-                                        <SelectContent>
-                                            <SelectItem value="gasolina">Gasolina</SelectItem>
-                                            <SelectItem value="diesel">Diesel</SelectItem>
-                                            <SelectItem value="gnv">Dual GNV</SelectItem>
-                                            <SelectItem value="glp">Dual GLP</SelectItem>
-                                        </SelectContent>
-                                    </Select>
+                                    <div className="relative">
+                                        <Fuel className="absolute left-3 top-3 h-5 w-5 text-[#d30826] z-10" />
+                                        <Select>
+                                            <SelectTrigger className="pl-10 h-12 bg-gray-50 border-gray-200">
+                                                <SelectValue placeholder="Combustible" />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                <SelectItem value="gasolina">Gasolina</SelectItem>
+                                                <SelectItem value="diesel">Diesel</SelectItem>
+                                                <SelectItem value="gnv">Dual GNV</SelectItem>
+                                                <SelectItem value="glp">Dual GLP</SelectItem>
+                                            </SelectContent>
+                                        </Select>
+                                    </div>
                                 </div>
 
                                 {/* Debt */}
                                 <div className="space-y-2">
-                                    <Select>
-                                        <SelectTrigger className="h-12 bg-gray-50 border-gray-200">
-                                            <SelectValue placeholder="¿Tiene Deuda?" />
-                                        </SelectTrigger>
-                                        <SelectContent>
-                                            <SelectItem value="no">No</SelectItem>
-                                            <SelectItem value="si">Sí</SelectItem>
-                                        </SelectContent>
-                                    </Select>
+                                    <div className="relative">
+                                        <CreditCard className="absolute left-3 top-3 h-5 w-5 text-[#d30826] z-10" />
+                                        <Select>
+                                            <SelectTrigger className="pl-10 h-12 bg-gray-50 border-gray-200">
+                                                <SelectValue placeholder="¿Tiene Deuda?" />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                <SelectItem value="no">No</SelectItem>
+                                                <SelectItem value="si">Sí</SelectItem>
+                                            </SelectContent>
+                                        </Select>
+                                    </div>
                                 </div>
                             </div>
 
                             {/* Message */}
                             <div className="space-y-2">
-                                <Textarea placeholder="Mensaje" className="min-h-[100px] bg-gray-50 border-gray-200 focus:ring-[#002559] resize-none" />
+                                <div className="relative">
+                                    <MessageSquare className="absolute left-3 top-3 h-5 w-5 text-[#d30826]" />
+                                    <Textarea placeholder="Mensaje" className="pl-10 min-h-[100px] bg-gray-50 border-gray-200 focus:ring-[#002559] resize-none" />
+                                </div>
                             </div>
 
                             <div className="flex justify-end pt-4">
                                 <Button className="bg-[#5e6d8a] hover:bg-[#002559] text-white px-8 py-6 text-lg rounded-xl transition-colors">
-                                    Siguiente
+                                    {content?.buttonText || "Siguiente"}
                                 </Button>
                             </div>
-
                         </form>
                     </div>
                 </div>

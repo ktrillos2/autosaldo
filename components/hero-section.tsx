@@ -1,23 +1,46 @@
 "use client"
 
 import { useRef, useState, useEffect } from "react"
-import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion"
+import { motion, AnimatePresence } from "framer-motion"
 import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { ArrowRight, ChevronLeft, ChevronRight, MapPin, Calendar, Gauge } from "lucide-react"
-import { cars, formatPrice, formatMileage } from "@/lib/data"
+import { formatPrice, formatMileage } from "@/lib/data"
+import type { Car } from "@/lib/data"
+import { urlFor } from "@/sanity/lib/image"
 
-export function HeroSection() {
+interface HeroContent {
+  overline?: string
+  headline?: string
+  headlineHighlight?: string
+  subheadline?: string
+  primaryButtonText?: string
+  primaryButtonLink?: string
+  secondaryButtonText?: string
+  secondaryButtonLink?: string
+}
+
+export function HeroSection({ content, cars }: { content?: HeroContent; cars?: Car[] }) {
   const containerRef = useRef<HTMLDivElement>(null)
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isAutoPlaying, setIsAutoPlaying] = useState(true)
-  const featuredCars = cars.filter((c) => c.featured).slice(0, 4)
 
+  const featuredCars = cars || []
 
+  const overline = content?.overline || "SERVICIO DE VENTA ASISTIDA"
+  const headline = content?.headline || "¡Compramos tu auto con deuda"
+  const headlineHighlight = content?.headlineHighlight || "al instante y sin riesgos!"
+  const subheadline =
+    content?.subheadline ||
+    "Olvídate de las demoras y los trámites engorrosos. Recibe una oferta justa en minutos y el dinero en tu cuenta hoy mismo."
+  const primaryButtonText = content?.primaryButtonText || "Cotizar mi Auto Ahora"
+  const primaryButtonLink = content?.primaryButtonLink || "/cotizador"
+  const secondaryButtonText = content?.secondaryButtonText || "Contactar Asesor"
+  const secondaryButtonLink = content?.secondaryButtonLink || "/contacto"
 
   useEffect(() => {
-    if (!isAutoPlaying) return
+    if (!isAutoPlaying || featuredCars.length === 0) return
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % featuredCars.length)
     }, 6000)
@@ -25,16 +48,25 @@ export function HeroSection() {
   }, [featuredCars.length, isAutoPlaying])
 
   const nextSlide = () => {
+    if (featuredCars.length === 0) return
     setIsAutoPlaying(false)
     setCurrentIndex((prev) => (prev + 1) % featuredCars.length)
   }
 
   const prevSlide = () => {
+    if (featuredCars.length === 0) return
     setIsAutoPlaying(false)
     setCurrentIndex((prev) => (prev - 1 + featuredCars.length) % featuredCars.length)
   }
 
   const currentCar = featuredCars[currentIndex]
+
+  // Image URL handling
+  const imageUrl = currentCar?.images?.[0]
+    ? typeof currentCar.images[0] === "string"
+      ? currentCar.images[0]
+      : urlFor(currentCar.images[0]).url()
+    : "/placeholder.svg?height=1080&width=1920&query=luxury car showroom dark"
 
   return (
     <section ref={containerRef} className="relative min-h-screen overflow-hidden bg-[#0a0a0a]">
@@ -49,8 +81,8 @@ export function HeroSection() {
           className="absolute inset-0"
         >
           <Image
-            src={currentCar?.images[0] || "/placeholder.svg?height=1080&width=1920&query=luxury car showroom dark"}
-            alt={`${currentCar?.brand} ${currentCar?.model}`}
+            src={imageUrl || "/placeholder.svg"}
+            alt={`${currentCar?.brand || "Auto"} ${currentCar?.model || ""}`}
             fill
             className="object-cover"
             priority
@@ -74,22 +106,24 @@ export function HeroSection() {
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
             {/* Texto */}
             <div>
-              <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.2 }}>
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.2 }}
+              >
                 <span className="inline-flex items-center gap-3 text-[#d30826] text-sm font-semibold tracking-widest uppercase">
                   <span className="w-12 h-px bg-[#d30826]" />
-                  SERVICIO DE VENTA ASISTIDA
+                  {overline}
                 </span>
               </motion.div>
 
               <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-white mb-6">
-                ¡Compramos tu auto con deuda
+                {headline}
                 <br />
-                <span className="text-[#d30826]">al instante y sin riesgos!</span>
+                <span className="text-[#d30826]">{headlineHighlight}</span>
               </h1>
 
-              <p className="text-xl text-gray-300 mb-8 max-w-lg leading-relaxed">
-                Olvídate de las demoras y los trámites engorrosos. Recibe una oferta justa en minutos y el dinero en tu cuenta hoy mismo.
-              </p>
+              <p className="text-xl text-gray-300 mb-8 max-w-lg leading-relaxed">{subheadline}</p>
 
               <div className="flex flex-col sm:flex-row gap-4">
                 <Button
@@ -97,8 +131,8 @@ export function HeroSection() {
                   asChild
                   className="group bg-[#d30826] text-white hover:bg-[#d30826]/90 rounded-full h-14 px-8 text-base font-semibold shadow-lg shadow-red-900/20"
                 >
-                  <Link href="/cotizador">
-                    Cotizar mi Auto Ahora
+                  <Link href={primaryButtonLink}>
+                    {primaryButtonText}
                     <ArrowRight className="ml-3 w-5 h-5 transition-transform group-hover:translate-x-1" />
                   </Link>
                 </Button>
@@ -108,13 +142,9 @@ export function HeroSection() {
                   asChild
                   className="rounded-full h-14 px-8 text-base font-semibold bg-white text-[#002559] hover:bg-gray-100 shadow-lg"
                 >
-                  <Link href="/contacto">
-                    Contactar Asesor
-                  </Link>
+                  <Link href={secondaryButtonLink}>{secondaryButtonText}</Link>
                 </Button>
               </div>
-
-
             </div>
 
             {/* Card del auto actual */}
@@ -128,7 +158,7 @@ export function HeroSection() {
                 {/* Imagen del auto en card */}
                 <div className="relative aspect-video w-full mb-4 rounded-xl overflow-hidden bg-black/40">
                   <Image
-                    src={currentCar?.images[0] || "/placeholder.svg?height=400&width=600"}
+                    src={imageUrl || "/placeholder.svg"}
                     alt={`${currentCar?.brand} ${currentCar?.model}`}
                     fill
                     className="object-contain"
@@ -157,9 +187,9 @@ export function HeroSection() {
                   >
                     <div className="flex items-start justify-between mb-4">
                       <div>
-                        <h3 className="text-lg font-bold text-white leading-tight">
+                        <h2 className="text-lg font-bold text-white leading-tight">
                           {currentCar?.brand} {currentCar?.model}
-                        </h3>
+                        </h2>
                         <p className="text-white/50 text-xs mt-0.5">Ejemplo de Compra</p>
                       </div>
                       <div className="text-right">
@@ -189,7 +219,10 @@ export function HeroSection() {
 
                     {/* Precio y CTA */}
                     <div className="flex items-center gap-3">
-                      <Button asChild className="w-full rounded-xl bg-white text-[#002559] hover:bg-white/90 h-10 text-sm font-bold">
+                      <Button
+                        asChild
+                        className="w-full rounded-xl bg-white text-[#002559] hover:bg-white/90 h-10 text-sm font-bold"
+                      >
                         <Link href={`/vehiculo/${currentCar?.id}`}>
                           Ver Detalles
                           <ArrowRight className="ml-2 w-3.5 h-3.5" />
@@ -201,7 +234,7 @@ export function HeroSection() {
 
                 {/* Navegación */}
                 <div className="flex items-center justify-between mt-5 pt-4 border-t border-white/10">
-                  <div className="flex gap-1.5">
+                  <div className="flex gap-1">
                     {featuredCars.map((_, i) => (
                       <button
                         key={i}
@@ -209,23 +242,30 @@ export function HeroSection() {
                           setIsAutoPlaying(false)
                           setCurrentIndex(i)
                         }}
-                        className={`h-1 rounded-full transition-all duration-500 ${i === currentIndex ? "w-6 bg-[#d30826]" : "w-1.5 bg-white/20 hover:bg-white/40"
-                          }`}
-                      />
+                        className="p-2 group focus:outline-none"
+                        aria-label={`Ir a diapositiva ${i + 1}`}
+                      >
+                        <div
+                          className={`h-1 rounded-full transition-all duration-500 ${i === currentIndex ? "w-6 bg-[#d30826]" : "w-1.5 bg-white/20 group-hover:bg-white/40"
+                            }`}
+                        />
+                      </button>
                     ))}
                   </div>
                   <div className="flex gap-2">
                     <button
                       onClick={prevSlide}
-                      className="w-7 h-7 rounded-full border border-white/20 flex items-center justify-center text-white/60 hover:text-white hover:border-white/40 transition-all"
+                      className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white/60 hover:text-white hover:border-white/40 transition-all"
+                      aria-label="Diapositiva anterior"
                     >
-                      <ChevronLeft className="w-4 h-4" />
+                      <ChevronLeft className="w-5 h-5" />
                     </button>
                     <button
                       onClick={nextSlide}
-                      className="w-7 h-7 rounded-full border border-white/20 flex items-center justify-center text-white/60 hover:text-white hover:border-white/40 transition-all"
+                      className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white/60 hover:text-white hover:border-white/40 transition-all"
+                      aria-label="Siguiente diapositiva"
                     >
-                      <ChevronRight className="w-4 h-4" />
+                      <ChevronRight className="w-5 h-5" />
                     </button>
                   </div>
                 </div>

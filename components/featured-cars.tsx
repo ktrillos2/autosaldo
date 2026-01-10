@@ -6,10 +6,23 @@ import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { ArrowRight, Fuel, Gauge, Settings } from "lucide-react"
-import { getFeaturedCars, formatPrice, formatMileage } from "@/lib/data"
+import { formatPrice, formatMileage } from "@/lib/data"
+import { urlFor } from "@/sanity/lib/image"
 
-export function FeaturedCars() {
-  const featuredCars = getFeaturedCars()
+interface FeaturedContent {
+  overline?: string
+  title?: string
+  highlight?: string
+  buttonText?: string
+  buttonLink?: string
+}
+
+export function FeaturedCars({ content, cars = [] }: { content?: FeaturedContent; cars?: any[] }) {
+  const overline = content?.overline || "Nuestro Catálogo"
+  const title = content?.title || "Autos"
+  const highlight = content?.highlight || "destacados"
+  const buttonText = content?.buttonText || "Ver todos los autos"
+  const buttonLink = content?.buttonLink || "/showroom"
 
   return (
     <section className="py-24 md:py-32 bg-[#fafafa] relative overflow-hidden">
@@ -24,7 +37,7 @@ export function FeaturedCars() {
               className="inline-flex items-center gap-3 text-primary text-sm font-semibold tracking-widest uppercase mb-4"
             >
               <span className="w-12 h-px bg-primary" />
-              Nuestro Catálogo
+              {overline}
             </motion.span>
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
@@ -33,7 +46,7 @@ export function FeaturedCars() {
               transition={{ delay: 0.1 }}
               className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground"
             >
-              Autos <span className="text-primary">destacados</span>
+              {title} <span className="text-primary">{highlight}</span>
             </motion.h2>
           </div>
           <motion.div
@@ -47,8 +60,8 @@ export function FeaturedCars() {
               asChild
               className="group rounded-full h-12 px-6 border-foreground/20 bg-transparent"
             >
-              <Link href="/showroom">
-                Ver todos los autos
+              <Link href={buttonLink}>
+                {buttonText}
                 <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Link>
             </Button>
@@ -57,63 +70,69 @@ export function FeaturedCars() {
 
         {/* Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {featuredCars.slice(0, 6).map((car, index) => (
-            <motion.div
-              key={car.id}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-            >
-              <Link href={`/vehiculo/${car.id}`} className="group block">
-                <div className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 border border-black/5">
-                  {/* Imagen */}
-                  <div className="relative aspect-[4/3] overflow-hidden bg-secondary">
-                    <Image
-                      src={car.images[0] || "/placeholder.svg"}
-                      alt={`${car.brand} ${car.model}`}
-                      fill
-                      className="object-cover group-hover:scale-105 transition-transform duration-700"
-                    />
-                    <Badge className="absolute top-4 left-4 bg-white/90 text-foreground backdrop-blur-sm font-medium">
-                      {car.category}
-                    </Badge>
-                  </div>
+          {cars.slice(0, 6).map((car, index) => {
+            const imageUrl = car.images?.[0]
+              ? (typeof car.images[0] === 'string' ? car.images[0] : urlFor(car.images[0]).url())
+              : "/placeholder.svg"
 
-                  {/* Contenido */}
-                  <div className="p-6">
-                    <div className="flex items-start justify-between gap-4 mb-4">
-                      <div>
-                        <h3 className="font-bold text-lg text-foreground group-hover:text-primary transition-colors">
-                          {car.brand} {car.model}
-                        </h3>
-                        <p className="text-sm text-muted-foreground">
-                          {car.version} · {car.year}
-                        </p>
+            return (
+              <motion.div
+                key={car._id || car.id}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+              >
+                <Link href={`/vehiculo/${car._id || car.id}`} className="group block">
+                  <div className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 border border-black/5">
+                    {/* Imagen */}
+                    <div className="relative aspect-[4/3] overflow-hidden bg-secondary">
+                      <Image
+                        src={imageUrl}
+                        alt={`${car.brand} ${car.model}`}
+                        fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-700"
+                      />
+                      <Badge className="absolute top-4 left-4 bg-white/90 text-foreground backdrop-blur-sm font-medium">
+                        {car.category}
+                      </Badge>
+                    </div>
+
+                    {/* Contenido */}
+                    <div className="p-6">
+                      <div className="flex items-start justify-between gap-4 mb-4">
+                        <div>
+                          <h3 className="font-bold text-lg text-foreground group-hover:text-primary transition-colors">
+                            {car.brand} {car.model}
+                          </h3>
+                          <p className="text-sm text-muted-foreground">
+                            {car.version} · {car.year}
+                          </p>
+                        </div>
+                        <p className="font-bold text-lg text-primary">{formatPrice(car.price)}</p>
                       </div>
-                      <p className="font-bold text-lg text-primary">{formatPrice(car.price)}</p>
-                    </div>
 
-                    {/* Specs */}
-                    <div className="flex items-center gap-4 pt-4 border-t border-border">
-                      <span className="flex items-center gap-1.5 text-sm text-muted-foreground">
-                        <Gauge className="w-4 h-4" />
-                        {formatMileage(car.mileage)} km
-                      </span>
-                      <span className="flex items-center gap-1.5 text-sm text-muted-foreground">
-                        <Fuel className="w-4 h-4" />
-                        {car.fuel}
-                      </span>
-                      <span className="flex items-center gap-1.5 text-sm text-muted-foreground">
-                        <Settings className="w-4 h-4" />
-                        {car.transmission}
-                      </span>
+                      {/* Specs */}
+                      <div className="flex items-center gap-4 pt-4 border-t border-border">
+                        <span className="flex items-center gap-1.5 text-sm text-muted-foreground">
+                          <Gauge className="w-4 h-4" />
+                          {formatMileage(car.mileage)} km
+                        </span>
+                        <span className="flex items-center gap-1.5 text-sm text-muted-foreground">
+                          <Fuel className="w-4 h-4" />
+                          {car.fuel}
+                        </span>
+                        <span className="flex items-center gap-1.5 text-sm text-muted-foreground">
+                          <Settings className="w-4 h-4" />
+                          {car.transmission}
+                        </span>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </Link>
-            </motion.div>
-          ))}
+                </Link>
+              </motion.div>
+            )
+          })}
         </div>
       </div>
     </section>
