@@ -3,9 +3,13 @@ import { groq } from "next-sanity"
 import { ShowroomClient } from "@/components/showroom-client"
 
 async function getData() {
-  return client.fetch(groq`*[_type == "auto" || (_type == "autoUsuario" && status == "aprobado")] {
+  console.log("Fetching cars...")
+  // Projection to normalize data between 'auto' and 'autoUsuario'
+  return client.fetch(groq`*[_type == "auto" || (_type == "autoUsuario" && status == "aprobado")] | order(_createdAt desc) {
     ...,
-    "id": _id 
+    "id": _id,
+    "owner": contactName,
+    "category": coalesce(category, "Usuario")
   }`, {}, { next: { revalidate: 0 } })
 }
 

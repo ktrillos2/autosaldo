@@ -72,7 +72,7 @@ export function CarCard({ car, index = 0 }: CarCardProps) {
             {car.owner && (
               <div className="pt-3 border-t border-gray-100 mt-2">
                 <p className="text-sm text-gray-500 text-center">
-                  Vehículo de: <span className="font-semibold text-[#002559]">{formatOwnerName(car.owner)}</span>
+                  Vendido por: <span className="font-semibold text-[#002559]">{formatOwnerName(car.owner)}</span>
                 </p>
               </div>
             )}
@@ -86,5 +86,8 @@ export function CarCard({ car, index = 0 }: CarCardProps) {
 function formatOwnerName(name: string): string {
   const parts = name.split(" ")
   if (parts.length < 2) return name
-  return `${parts[0]} ${parts[1].charAt(0)}.`
+  // Nombre + Primera letra del segundo nombre + *
+  const firstName = parts[0]
+  const secondNameInitial = parts[1].charAt(0)
+  return `${firstName} ${secondNameInitial}*`
 }

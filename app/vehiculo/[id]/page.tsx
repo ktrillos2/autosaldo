@@ -30,6 +30,8 @@ export default async function VehiclePage({ params }: VehiclePageProps) {
   const car = await client.fetch(groq`*[(_type == "auto" || _type == "autoUsuario") && _id == $id][0]{
     ...,
     "id": _id,
+    "owner": contactName,
+    "category": coalesce(category, "Usuario"),
     images
   }`, { id }, { next: { revalidate: 0 } })
 
@@ -43,10 +45,11 @@ export default async function VehiclePage({ params }: VehiclePageProps) {
   ) || []
 
   // Fetch Related Cars
+  // Ensure we don't crash if category is missing or custom
   const relatedCars = await client.fetch(groq`*[_type == "auto" && _id != $id && (brand == $brand || category == $category)][0..3]{
     ...,
     "id": _id
-  }`, { id, brand: car.brand, category: car.category }, { next: { revalidate: 0 } })
+  }`, { id, brand: car.brand, category: car.category || "General" }, { next: { revalidate: 0 } })
 
   return (
     <main className="min-h-screen bg-background pb-24 lg:pb-0">
@@ -86,7 +89,7 @@ export default async function VehiclePage({ params }: VehiclePageProps) {
                 {car.owner && (
                   <div className="mb-4 pb-4 border-b border-border">
                     <p className="text-sm text-muted-foreground">
-                      Vehículo de: <span className="font-semibold text-[#002559] text-base">{formatOwnerName(car.owner)}</span>
+                      Vendido por: <span className="font-semibold text-[#002559] text-base">{formatOwnerName(car.owner)}</span>
                     </p>
                   </div>
                 )}
