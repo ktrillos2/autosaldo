@@ -18,6 +18,7 @@ export interface Car {
   images: string[]
   featured?: boolean
   owner?: string
+  sold?: boolean
 }
 
 export const cars: Car[] = [

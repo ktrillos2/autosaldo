@@ -193,7 +193,6 @@ export function HeroSection({ content, cars }: { content?: HeroContent; cars?: C
                         <p className="text-white/50 text-xs mt-0.5">Ejemplo de Compra</p>
                       </div>
                       <div className="text-right">
-                        <p className="text-[10px] text-[#d30826] font-bold uppercase mb-0.5">Pagamos hasta</p>
                         <p className="text-xl font-bold text-white">{formatPrice(currentCar?.price || 0)}</p>
                       </div>
                     </div>

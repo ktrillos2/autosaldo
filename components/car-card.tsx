@@ -38,6 +38,13 @@ export function CarCard({ car, index = 0 }: CarCardProps) {
             {car.featured && (
               <Badge className="absolute top-3 right-3 bg-[#d30826] text-white hover:bg-[#d30826]/90">Destacado</Badge>
             )}
+            {car.sold && (
+              <div className="absolute inset-0 bg-black/50 flex items-center justify-center z-10">
+                <span className="bg-[#d30826] text-white px-4 py-2 text-xl font-bold rounded-md transform -rotate-12 border-2 border-white shadow-lg">
+                  VENDIDO
+                </span>
+              </div>
+            )}
           </div>
           <CardContent className="p-5">
             <div className="flex items-start justify-between gap-2 mb-3">

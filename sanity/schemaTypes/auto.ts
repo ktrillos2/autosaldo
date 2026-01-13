@@ -6,6 +6,18 @@ export const auto = defineType({
     type: 'document',
     fields: [
         defineField({
+            name: 'sold',
+            title: 'Vendido',
+            type: 'boolean',
+            initialValue: false,
+        }),
+        defineField({
+            name: 'featured',
+            title: 'Destacado',
+            type: 'boolean',
+            initialValue: false,
+        }),
+        defineField({
             name: 'brand',
             title: 'Marca',
             type: 'string',
@@ -101,12 +113,6 @@ export const auto = defineType({
             title: 'Imágenes',
             type: 'array',
             of: [{ type: 'image', options: { hotspot: true } }],
-        }),
-        defineField({
-            name: 'featured',
-            title: 'Destacado',
-            type: 'boolean',
-            initialValue: false,
         }),
     ],
     preview: {
