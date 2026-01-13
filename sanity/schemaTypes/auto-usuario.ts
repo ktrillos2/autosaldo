@@ -21,6 +21,19 @@ export const autoUsuario = defineType({
             validation: (Rule) => Rule.required(),
         }),
 
+        defineField({
+            name: 'sold',
+            title: 'Vendido',
+            type: 'boolean',
+            initialValue: false,
+        }),
+        defineField({
+            name: 'featured',
+            title: 'Destacado',
+            type: 'boolean',
+            initialValue: false,
+        }),
+
         // User Contact Info
         defineField({
             name: 'contactName',
