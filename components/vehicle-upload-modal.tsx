@@ -305,7 +305,7 @@ export function VehicleUploadModal() {
                                                     <SelectTrigger className="bg-gray-50">
                                                         <SelectValue placeholder="Distrito" />
                                                     </SelectTrigger>
-                                                    <SelectContent>
+                                                    <SelectContent position="item-aligned">
                                                         <SelectItem value="lima">Lima</SelectItem>
                                                         <SelectItem value="miraflores">Miraflores</SelectItem>
                                                         <SelectItem value="san-isidro">San Isidro</SelectItem>
