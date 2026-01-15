@@ -19,6 +19,7 @@ export interface Car {
   featured?: boolean
   owner?: string
   sold?: boolean
+  message?: string
 }
 
 export const cars: Car[] = [

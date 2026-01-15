@@ -39,6 +39,10 @@ export function VehicleUploadModal() {
         fuel: "",
         debt: "",
         message: "",
+        cc: "",
+        hp: "",
+        consumption: "",
+        keys: "",
     })
 
     const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -104,6 +108,10 @@ export function VehicleUploadModal() {
             fuel: "",
             debt: "",
             message: "",
+            cc: "",
+            hp: "",
+            consumption: "",
+            keys: "",
         })
         setSelectedFiles([])
         setPreviews([])
@@ -181,6 +189,7 @@ export function VehicleUploadModal() {
             <Modal
                 isOpen={isOpen}
                 onOpenChange={handleOpenChange}
+                isDismissable={false}
                 size="2xl"
                 scrollBehavior="inside"
                 placement="center"
@@ -376,6 +385,55 @@ export function VehicleUploadModal() {
                                                     value={formData.price}
                                                     onChange={(e) => setFormData({ ...formData, price: e.target.value })}
                                                     required
+                                                />
+                                            </div>
+
+                                            {/* Technical Specs */}
+                                            <div className="space-y-2">
+                                                <Label htmlFor="cc">Cilindrada (cc)</Label>
+                                                <Input
+                                                    id="cc"
+                                                    type="number"
+                                                    placeholder="Ej. 2000"
+                                                    className="bg-gray-50"
+                                                    value={formData.cc}
+                                                    onChange={(e) => setFormData({ ...formData, cc: e.target.value })}
+                                                />
+                                            </div>
+
+                                            <div className="space-y-2">
+                                                <Label htmlFor="hp">Potencia (HP)</Label>
+                                                <Input
+                                                    id="hp"
+                                                    type="number"
+                                                    placeholder="Ej. 180"
+                                                    className="bg-gray-50"
+                                                    value={formData.hp}
+                                                    onChange={(e) => setFormData({ ...formData, hp: e.target.value })}
+                                                />
+                                            </div>
+
+                                            <div className="space-y-2">
+                                                <Label htmlFor="consumption">Consumo (km/gl)</Label>
+                                                <Input
+                                                    id="consumption"
+                                                    type="number"
+                                                    placeholder="Ej. 45"
+                                                    className="bg-gray-50"
+                                                    value={formData.consumption}
+                                                    onChange={(e) => setFormData({ ...formData, consumption: e.target.value })}
+                                                />
+                                            </div>
+
+                                            <div className="space-y-2">
+                                                <Label htmlFor="keys">Juegos de Llaves</Label>
+                                                <Input
+                                                    id="keys"
+                                                    type="number"
+                                                    placeholder="Ej. 2"
+                                                    className="bg-gray-50"
+                                                    value={formData.keys}
+                                                    onChange={(e) => setFormData({ ...formData, keys: e.target.value })}
                                                 />
                                             </div>
 

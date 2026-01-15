@@ -86,6 +86,12 @@ export const autoUsuario = defineType({
             },
         }),
 
+        // Technical Specs
+        defineField({ name: 'cc', title: 'Cilindrada (cc)', type: 'number' }),
+        defineField({ name: 'hp', title: 'Potencia (HP)', type: 'number' }),
+        defineField({ name: 'consumption', title: 'Consumo (km/gl)', type: 'number' }),
+        defineField({ name: 'keys', title: 'Juegos de Llaves', type: 'number' }),
+
         // Images
         defineField({
             name: 'images',

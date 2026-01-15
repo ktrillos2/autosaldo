@@ -8,7 +8,7 @@ interface VehicleSpecsProps {
 
 export function VehicleSpecs({ car }: VehicleSpecsProps) {
   const specs = [
-    { icon: Calendar, label: "Año", value: car.year?.toString() || "N/A" },
+    { icon: Calendar, label: "Año", value: car.year ? car.year.toString() : "N/A" },
     { icon: Gauge, label: "Kilometraje", value: `${formatMileage(car.mileage || 0)} km` },
     {
       icon: Settings,
@@ -21,7 +21,7 @@ export function VehicleSpecs({ car }: VehicleSpecsProps) {
     ...(car.cc ? [{ icon: Zap, label: "Cilindrada", value: `${car.cc} cc` }] : []),
     ...(car.hp ? [{ icon: Zap, label: "Potencia", value: `${car.hp} HP` }] : []),
     ...(car.consumption ? [{ icon: Droplets, label: "Consumo aprox.", value: `${car.consumption} km/gl` }] : []),
-    ...(car.keys !== undefined ? [{ icon: Key, label: "Número de llaves", value: car.keys.toString() }] : []),
+    ...(car.keys !== null && car.keys !== undefined ? [{ icon: Key, label: "Número de llaves", value: car.keys.toString() }] : []),
   ]
 
   return (

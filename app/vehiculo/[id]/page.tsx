@@ -32,7 +32,12 @@ export default async function VehiclePage({ params }: VehiclePageProps) {
     "id": _id,
     "owner": contactName,
     "category": coalesce(category, "Usuario"),
-    images
+    images,
+    message,
+    cc,
+    hp,
+    consumption,
+    keys
   }`, { id }, { next: { revalidate: 0 } })
 
   if (!car) {
@@ -94,14 +99,20 @@ export default async function VehiclePage({ params }: VehiclePageProps) {
                   </div>
                 )}
                 <h2 className="font-semibold text-lg text-foreground mb-4">Descripción</h2>
-                <p className="text-muted-foreground leading-relaxed">
-                  Vehículo {car.brand} {car.model} {car.version} del año {car.year} en excelente estado. Cuenta con{" "}
-                  {car.mileage?.toLocaleString()} km de recorrido, transmisión{" "}
-                  {car.transmission === "AT" ? "automática" : car.transmission === "MT" ? "manual" : "CVT"} y motor a{" "}
-                  {car.fuel?.toLowerCase()}. Ha pasado por nuestra inspección de 240 puntos garantizando su calidad y
-                  funcionamiento óptimo. {car.keys ? `Incluye ${car.keys} ${car.keys === 1 ? "llave" : "llaves"} y t` : "T"}oda la
-                  documentación en regla.
-                </p>
+                {car.message ? (
+                  <p className="text-muted-foreground leading-relaxed whitespace-pre-wrap">
+                    {car.message}
+                  </p>
+                ) : (
+                  <p className="text-muted-foreground leading-relaxed">
+                    Vehículo {car.brand} {car.model} {car.version} del año {car.year} en excelente estado. Cuenta con{" "}
+                    {car.mileage?.toLocaleString()} km de recorrido, transmisión{" "}
+                    {car.transmission === "AT" ? "automática" : car.transmission === "MT" ? "manual" : "CVT"} y motor a{" "}
+                    {car.fuel?.toLowerCase()}. Ha pasado por nuestra inspección de 240 puntos garantizando su calidad y
+                    funcionamiento óptimo. {car.keys ? `Incluye ${car.keys} ${car.keys === 1 ? "llave" : "llaves"} y t` : "T"}oda la
+                    documentación en regla.
+                  </p>
+                )}
               </div>
             </div>
 

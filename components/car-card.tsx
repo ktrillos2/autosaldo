@@ -38,7 +38,7 @@ export function CarCard({ car, index = 0 }: CarCardProps) {
             {car.sold ? (
               <Badge className="absolute top-3 right-3 bg-[#d30826] text-white hover:bg-[#d30826]/90 font-bold uppercase">Vendido</Badge>
             ) : car.featured && (
-              <Badge className="absolute top-3 right-3 bg-[#d30826] text-white hover:bg-[#d30826]/90">Destacado</Badge>
+              <Badge className="absolute top-3 right-3 bg-[#002559] text-white hover:bg-[#002559]/90 uppercase">Destacado</Badge>
             )}
 
           </div>

@@ -40,6 +40,10 @@ export async function POST(req: Request) {
         const fuel = formData.get("fuel") as string
         const debt = formData.get("debt") as string
         const message = formData.get("message") as string
+        const cc = Number(formData.get("cc"))
+        const hp = Number(formData.get("hp"))
+        const consumption = Number(formData.get("consumption"))
+        const keys = Number(formData.get("keys"))
 
         // Upload Images
         const imageFiles = formData.getAll("images") as File[]
@@ -75,6 +79,10 @@ export async function POST(req: Request) {
             fuel,
             debt,
             message,
+            cc,
+            hp,
+            consumption,
+            keys,
             images: imageAssetIds.map((id) => ({
                 _type: "image",
                 asset: {
@@ -107,7 +115,11 @@ export async function POST(req: Request) {
                         Combustible: fuel,
                         Deuda: debt,
                         Version: version,
-                        Mensaje: message
+                        Mensaje: message,
+                        Cilindrada: `${cc} cc`,
+                        Potencia: `${hp} HP`,
+                        Consumo: `${consumption} km/gl`,
+                        Llaves: keys
                     }
                 }),
             })

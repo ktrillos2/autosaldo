@@ -12,9 +12,14 @@ export default async function HomePage() {
     "trust": *[_type == "trust"][0],
     "featured": *[_type == "featured"][0],
     "cta": *[_type == "cta"][0],
-    "featuredList": *[_type == "auto" && featured == true][0..3] {
+    "featuredList": *[
+      (_type == "auto" && featured == true) ||
+      (_type == "autoUsuario" && featured == true && status == "aprobado")
+    ] | order(_createdAt desc)[0..3] {
       ...,
-      "id": _id
+      "id": _id,
+      "owner": contactName,
+      "category": coalesce(category, "Usuario")
     },
     "fallbackList": *[_type == "auto"] | order(price desc)[0..3] {
       ...,
