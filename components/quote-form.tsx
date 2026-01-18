@@ -28,6 +28,8 @@ export function QuoteForm({ content }: { content?: VendeFormContent }) {
         const data: any = {}
         formData.forEach((value, key) => data[key] = value)
 
+        const form = e.currentTarget // Capture form reference
+
         try {
             const res = await fetch("/api/send", {
                 method: "POST",
@@ -38,7 +40,7 @@ export function QuoteForm({ content }: { content?: VendeFormContent }) {
             if (res.ok) {
                 alert("Solicitud enviada con éxito. Te contactaremos pronto.")
                 // Reset form
-                e.currentTarget.reset()
+                form.reset()
             } else {
                 alert("Hubo un error al enviar la solicitud.")
             }
@@ -161,7 +163,7 @@ export function QuoteForm({ content }: { content?: VendeFormContent }) {
                                 <div className="space-y-2">
                                     <div className="relative">
                                         <Calendar className="absolute left-3 top-3 h-5 w-5 text-[#d30826] z-10" />
-                                        <Select name="Anio">
+                                        <Select name="Año">
                                             <SelectTrigger className="pl-10 h-12 bg-gray-50 border-gray-200">
                                                 <SelectValue placeholder="Año" />
                                             </SelectTrigger>
