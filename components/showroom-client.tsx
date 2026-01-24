@@ -131,11 +131,11 @@ export function ShowroomClient({ cars }: { cars: any[] }) {
     return (
         <main className="min-h-screen bg-background">
             {/* Hero Banner */}
-            <section className="pt-20 md:pt-24 pb-8 bg-secondary">
+            <section className="pt-32 md:pt-36 pb-4 md:pb-8 bg-secondary">
                 <div className="container mx-auto px-4">
-                    <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center py-12">
-                        <h1 className="font-serif text-3xl md:text-5xl font-bold text-foreground mb-4">Showroom</h1>
-                        <p className="text-muted-foreground max-w-xl mx-auto mb-8">
+                    <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center py-6 md:py-12">
+                        <h1 className="font-serif text-3xl md:text-5xl font-bold text-foreground mb-3 md:mb-4">Showroom</h1>
+                        <p className="text-muted-foreground max-w-xl mx-auto mb-4 md:mb-8 text-sm md:text-base">
                             Explora nuestra selección de autos seminuevos certificados. Encuentra el vehículo perfecto para ti.
                         </p>
 
@@ -144,7 +144,7 @@ export function ShowroomClient({ cars }: { cars: any[] }) {
             </section>
 
             {/* Main Content */}
-            <section className="py-8">
+            <section className="pt-4 pb-8 md:py-8">
                 <div className="container mx-auto px-4">
                     {/* Search and Sort Bar */}
                     <div className="flex flex-col sm:flex-row gap-4 mb-6">
@@ -175,13 +175,15 @@ export function ShowroomClient({ cars }: { cars: any[] }) {
 
                     <div className="flex gap-8">
                         {/* Desktop Filters Sidebar */}
-                        <ShowroomFilters
-                            filters={filters}
-                            onFiltersChange={setFilters}
-                            onClearFilters={() => setFilters(initialFiltersState)}
-                            options={options}
-                            totalResults={filteredCars.length}
-                        />
+                        <div className="hidden lg:block">
+                            <ShowroomFilters
+                                filters={filters}
+                                onFiltersChange={setFilters}
+                                onClearFilters={() => setFilters(initialFiltersState)}
+                                options={options}
+                                totalResults={filteredCars.length}
+                            />
+                        </div>
 
                         {/* Car Grid */}
                         <div className="flex-1">

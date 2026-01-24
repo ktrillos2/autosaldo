@@ -47,9 +47,10 @@ export async function POST(req: Request) {
 
         // Upload Images
         const imageFiles = formData.getAll("images") as File[]
-        const imageAssetIds: string[] = []
 
-        for (const file of imageFiles) {
+
+        // Upload Images concurrently
+        const uploadPromises = imageFiles.map(async (file) => {
             if (file.size > 0) {
                 const arrayBuffer = await file.arrayBuffer()
                 const buffer = Buffer.from(arrayBuffer)
@@ -57,9 +58,13 @@ export async function POST(req: Request) {
                     filename: file.name,
                     contentType: file.type,
                 })
-                imageAssetIds.push(asset._id)
+                return asset._id
             }
-        }
+            return null
+        })
+
+        const uploadedAssetIds = await Promise.all(uploadPromises)
+        const imageAssetIds = uploadedAssetIds.filter((id): id is string => id !== null)
 
         // Create Document
         const doc = {
