@@ -12,6 +12,12 @@ export const auto = defineType({
             initialValue: false,
         }),
         defineField({
+            name: 'description',
+            title: 'Descripción (Admin)',
+            type: 'text',
+            rows: 5,
+        }),
+        defineField({
             name: 'featured',
             title: 'Destacado',
             type: 'boolean',

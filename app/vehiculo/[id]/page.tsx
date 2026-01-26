@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation"
 import Link from "next/link"
-import { Footer } from "@/components/footer"
+
 import { ImageGallery } from "@/components/image-gallery"
 import { VehicleSpecs } from "@/components/vehicle-specs"
 import { VehicleCTA, VehicleCTAMobile } from "@/components/vehicle-cta"
@@ -34,6 +34,7 @@ export default async function VehiclePage({ params }: VehiclePageProps) {
     "category": coalesce(category, "Usuario"),
     images,
     message,
+    description,
     cc,
     hp,
     consumption,
@@ -99,7 +100,11 @@ export default async function VehiclePage({ params }: VehiclePageProps) {
                   </div>
                 )}
                 <h2 className="font-semibold text-lg text-foreground mb-4">Descripción</h2>
-                {car.message ? (
+                {car.description ? (
+                  <p className="text-muted-foreground leading-relaxed whitespace-pre-wrap">
+                    {car.description}
+                  </p>
+                ) : car.message ? (
                   <p className="text-muted-foreground leading-relaxed whitespace-pre-wrap">
                     {car.message}
                   </p>
@@ -148,7 +153,7 @@ export default async function VehiclePage({ params }: VehiclePageProps) {
         </div>
       </div>
 
-      <Footer />
+
       <VehicleCTAMobile car={car} />
     </main>
   )
