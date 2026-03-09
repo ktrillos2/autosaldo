@@ -156,7 +156,7 @@ export function HeroSection({ content, cars }: { content?: HeroContent; cars?: C
             >
               <div className="bg-white/5 backdrop-blur-xl rounded-2xl p-5 border border-white/10 max-w-md ml-auto">
                 {/* Imagen del auto en card */}
-                <div className="relative aspect-video w-full mb-4 rounded-xl overflow-hidden bg-black/40">
+                <div className="relative aspect-[4/3] w-full mb-4 rounded-xl overflow-hidden bg-black/40">
                   <Image
                     src={imageUrl || "/placeholder.svg"}
                     alt={`${currentCar?.brand} ${currentCar?.model}`}

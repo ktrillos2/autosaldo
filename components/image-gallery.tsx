@@ -32,7 +32,7 @@ export function ImageGallery({ images, alt }: ImageGalleryProps) {
     <>
       <div className="space-y-4">
         {/* Main Image */}
-        <div className="relative aspect-[16/10] rounded-xl overflow-hidden bg-muted group">
+        <div className="relative aspect-[4/3] rounded-xl overflow-hidden bg-muted group">
           <AnimatePresence mode="wait">
             <motion.div
               key={currentIndex}
