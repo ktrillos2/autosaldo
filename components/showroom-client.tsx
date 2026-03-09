@@ -29,10 +29,13 @@ export function ShowroomClient({ cars }: { cars: any[] }) {
     const [search, setSearch] = useState("")
 
     const options = useMemo(() => {
-        const brands = Array.from(new Set(cars?.map((c) => c.brand).filter(Boolean))) as string[]
-        const categories = Array.from(new Set(cars?.map((c) => c.category).filter(Boolean))) as string[]
-        const transmissions = Array.from(new Set(cars?.map((c) => c.transmission).filter(Boolean))) as string[]
-        const fuels = Array.from(new Set(cars?.map((c) => c.fuel).filter(Boolean))) as string[]
+        const normalize = (arr: any[]) => Array.from(new Set(arr?.map((c) => c?.toString().trim()).filter(Boolean))).sort() as string[]
+
+        const brands = normalize(cars?.map((c) => c.brand))
+        const categories = normalize(cars?.map((c) => c.category))
+        const transmissions = normalize(cars?.map((c) => c.transmission))
+        const fuels = normalize(cars?.map((c) => c.fuel))
+
         return { brands, categories, transmissions, fuels }
     }, [cars])
 
@@ -52,22 +55,22 @@ export function ShowroomClient({ cars }: { cars: any[] }) {
 
         // Brand filter
         if (filters.brands.length > 0) {
-            result = result.filter((car) => filters.brands.includes(car.brand))
+            result = result.filter((car) => filters.brands.includes(car.brand?.trim()))
         }
 
         // Category filter
         if (filters.categories.length > 0) {
-            result = result.filter((car) => filters.categories.includes(car.category))
+            result = result.filter((car) => filters.categories.includes(car.category?.trim()))
         }
 
         // Transmission filter
         if (filters.transmissions.length > 0) {
-            result = result.filter((car) => filters.transmissions.includes(car.transmission))
+            result = result.filter((car) => filters.transmissions.includes(car.transmission?.trim()))
         }
 
         // Fuel filter
         if (filters.fuels.length > 0) {
-            result = result.filter((car) => filters.fuels.includes(car.fuel))
+            result = result.filter((car) => filters.fuels.includes(car.fuel?.trim()))
         }
 
         // Price filter
