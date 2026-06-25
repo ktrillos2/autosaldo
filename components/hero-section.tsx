@@ -161,7 +161,7 @@ export function HeroSection({ content, cars }: { content?: HeroContent; cars?: C
                     src={imageUrl || "/placeholder.svg"}
                     alt={`${currentCar?.brand} ${currentCar?.model}`}
                     fill
-                    className="object-contain"
+                    className="object-cover"
                   />
                 </div>
 

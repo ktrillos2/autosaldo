@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import Image from "next/image"
+import { urlFor } from "@/sanity/lib/image"
 
 interface VendeFormContent {
     bannerTitle?: string
@@ -15,6 +16,7 @@ interface VendeFormContent {
     formTitle?: string
     formDescription?: string
     buttonText?: string
+    bannerImage?: any
 }
 
 export function QuoteForm({ content }: { content?: VendeFormContent }) {
@@ -60,8 +62,8 @@ export function QuoteForm({ content }: { content?: VendeFormContent }) {
                     {/* Left Column: Image/Banner */}
                     <div className="lg:w-2/5 relative min-h-[400px] lg:min-h-full bg-gray-900">
                         <Image
-                            src="/placeholder.svg?height=800&width=600&query=luxury car mechanic shop"
-                            alt="Compramos tu auto"
+                            src={content?.bannerImage ? urlFor(content.bannerImage).url() : "/placeholder.svg?height=800&width=600&query=luxury car mechanic shop"}
+                            alt={content?.bannerTitle || "Compramos tu auto"}
                             fill
                             className="object-cover opacity-60"
                         />

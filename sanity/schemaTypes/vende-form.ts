@@ -41,5 +41,13 @@ export const vendeForm = defineType({
             type: 'string',
             initialValue: 'Siguiente',
         }),
+        defineField({
+            name: 'bannerImage',
+            title: 'Imagen del Banner',
+            type: 'image',
+            options: {
+                hotspot: true,
+            },
+        }),
     ],
 })
