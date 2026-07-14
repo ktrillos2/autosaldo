@@ -21,14 +21,23 @@ interface VendeFormContent {
 
 export function QuoteForm({ content }: { content?: VendeFormContent }) {
     const [isLoading, setIsLoading] = useState(false)
+    const [selectedBrand, setSelectedBrand] = useState("")
+    const brandsList = ["MAZDA", "SUBARU", "TOYOTA", "NISSAN", "SUZUKI", "CHEVROLET", "HYUNDAI", "KIA"]
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
+
+        if (!selectedBrand) {
+            alert("Por favor selecciona la marca de tu vehículo.")
+            return
+        }
+
         setIsLoading(true)
         const formData = new FormData(e.currentTarget)
 
         const data: any = {}
         formData.forEach((value, key) => data[key] = value)
+        data["Marca"] = selectedBrand
 
         const form = e.currentTarget // Capture form reference
 
@@ -40,9 +49,27 @@ export function QuoteForm({ content }: { content?: VendeFormContent }) {
             })
 
             if (res.ok) {
+                const text = `*Hola, quiero cotizar mi vehículo:*
+- *Nombre:* ${data.Nombre}
+- *Teléfono:* ${data.Telefono}
+- *Email:* ${data.Email}
+- *Marca:* ${data.Marca}
+- *Modelo:* ${data.Modelo}
+- *Placa:* ${data.Placa || "No especificada"}
+- *Distrito:* ${data.Distrito || "No especificado"}
+- *Año:* ${data.Año || "No especificado"}
+- *Kilometraje:* ${data.Kilometraje || "No especificado"}
+- *Combustible:* ${data.Combustible || "No especificado"}
+- *¿Deuda?:* ${data.Deuda || "No especificado"}
+- *Mensaje:* ${data.Mensaje || "Sin mensaje"}`
+
+                const whatsappUrl = `https://wa.me/51937385398?text=${encodeURIComponent(text)}`
+                window.open(whatsappUrl, "_blank")
+                
                 alert("Solicitud enviada con éxito. Te contactaremos pronto.")
                 // Reset form
                 form.reset()
+                setSelectedBrand("")
             } else {
                 alert("Hubo un error al enviar la solicitud.")
             }
@@ -113,21 +140,31 @@ export function QuoteForm({ content }: { content?: VendeFormContent }) {
                                 </div>
                             </div>
 
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                {/* Brand */}
-                                <div className="space-y-2">
-                                    <div className="relative">
-                                        <Car className="absolute left-3 top-3 h-5 w-5 text-[#d30826]" />
-                                        <Input name="Marca" required placeholder="Marca" className="pl-10 h-12 bg-gray-50 border-gray-200 focus:ring-[#002559]" />
-                                    </div>
+                            {/* Brand Selector */}
+                            <div className="space-y-3 pb-2">
+                                <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+                                    {brandsList.map(brand => (
+                                        <button
+                                            key={brand}
+                                            type="button"
+                                            onClick={() => setSelectedBrand(brand)}
+                                            className={`py-3 px-2 text-[13px] font-semibold rounded border transition-all tracking-wide ${
+                                                selectedBrand === brand 
+                                                    ? 'border-[#002559] bg-[#002559]/5 text-[#002559] shadow-sm' 
+                                                    : 'border-gray-200 bg-white text-gray-500 hover:border-gray-300 hover:bg-gray-50'
+                                            }`}
+                                        >
+                                            {brand}
+                                        </button>
+                                    ))}
                                 </div>
+                            </div>
 
-                                {/* Model */}
-                                <div className="space-y-2">
-                                    <div className="relative">
-                                        <span className="absolute left-3 top-3 h-5 w-5 text-[#d30826] font-bold flex items-center justify-center text-xs">M</span>
-                                        <Input name="Modelo" required placeholder="Modelo" className="pl-10 h-12 bg-gray-50 border-gray-200 focus:ring-[#002559]" />
-                                    </div>
+                            {/* Model */}
+                            <div className="space-y-2">
+                                <div className="relative">
+                                    <span className="absolute left-3 top-3 h-5 w-5 text-[#d30826] font-bold flex items-center justify-center text-xs">M</span>
+                                    <Input name="Modelo" required placeholder="Modelo" className="pl-10 h-12 bg-gray-50 border-gray-200 focus:ring-[#002559]" />
                                 </div>
                             </div>
 

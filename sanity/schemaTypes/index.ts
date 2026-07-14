@@ -20,6 +20,7 @@ import { contactoContent } from './contacto-content'
 
 import { auto } from './auto'
 import { autoUsuario } from './auto-usuario'
+import { cotizacion } from './cotizacion'
 
 import { globals } from './globals'
 
@@ -42,6 +43,7 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     contactoContent,
     auto,
     autoUsuario,
+    cotizacion,
     globals,
   ],
 }

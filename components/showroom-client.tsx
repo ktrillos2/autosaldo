@@ -9,6 +9,7 @@ import { ShowroomSort, type SortOption } from "@/components/showroom-sort"
 import { Input } from "@/components/ui/input"
 import { Search } from "lucide-react"
 import { VehicleUploadModal } from "@/components/vehicle-upload-modal"
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
 const initialFiltersState: Filters = {
     brands: [],
@@ -27,6 +28,7 @@ export function ShowroomClient({ cars }: { cars: any[] }) {
     const [filters, setFilters] = useState<Filters>(initialFiltersState)
     const [sort, setSort] = useState<SortOption>("relevance")
     const [search, setSearch] = useState("")
+    const [inventoryStatus, setInventoryStatus] = useState<"disponibles" | "vendidos">("disponibles")
 
     const options = useMemo(() => {
         const normalize = (arr: any[]) => Array.from(new Set(arr?.map((c) => c?.toString().trim()).filter(Boolean))).sort() as string[]
@@ -41,6 +43,13 @@ export function ShowroomClient({ cars }: { cars: any[] }) {
 
     const filteredCars = useMemo(() => {
         let result = [...(cars || [])]
+
+        // Inventory Status Filter
+        if (inventoryStatus === "disponibles") {
+            result = result.filter(car => !car.vendido)
+        } else if (inventoryStatus === "vendidos") {
+            result = result.filter(car => car.vendido)
+        }
 
         // Search filter
         if (search) {
@@ -117,7 +126,7 @@ export function ShowroomClient({ cars }: { cars: any[] }) {
         }
 
         return result
-    }, [filters, sort, search, cars])
+    }, [filters, sort, search, inventoryStatus, cars])
 
     if (!cars || cars.length === 0) {
         return (
@@ -149,6 +158,16 @@ export function ShowroomClient({ cars }: { cars: any[] }) {
             {/* Main Content */}
             <section className="pt-4 pb-8 md:py-8">
                 <div className="container mx-auto px-4">
+                    {/* Inventory Status Tabs */}
+                    <div className="flex justify-center mb-8">
+                        <Tabs value={inventoryStatus} onValueChange={(val) => setInventoryStatus(val as "disponibles" | "vendidos")} className="w-full max-w-[400px]">
+                            <TabsList className="grid w-full grid-cols-2">
+                                <TabsTrigger value="disponibles">Disponibles</TabsTrigger>
+                                <TabsTrigger value="vendidos">Vendidos</TabsTrigger>
+                            </TabsList>
+                        </Tabs>
+                    </div>
+
                     {/* Search and Sort Bar */}
                     <div className="flex flex-col sm:flex-row gap-4 mb-6">
                         <div className="relative flex-1">

@@ -16,6 +16,27 @@ export async function POST(req: Request) {
             ? `Nueva Cotización: ${data.Nombre}`
             : `Nuevo Contacto: ${data.Nombre}`
 
+        // Save to Sanity if it's a cotizacion
+        if (type === 'cotizacion') {
+            const writeClient = client.withConfig({ token: process.env.SANITY_API_TOKEN })
+            await writeClient.create({
+                _type: 'cotizacion',
+                nombre: data.Nombre || '',
+                telefono: data.Telefono || '',
+                email: data.Email || '',
+                marca: data.Marca || '',
+                modelo: data.Modelo || '',
+                placa: data.Placa || '',
+                distrito: data.Distrito || '',
+                anio: data.Año || '',
+                kilometraje: data.Kilometraje || '',
+                combustible: data.Combustible || '',
+                deuda: data.Deuda || '',
+                mensaje: data.Mensaje || '',
+                status: 'nuevo'
+            })
+        }
+
         const { error } = await resend.emails.send({
             from: 'Autosaldo Web <info@autosaldo.com>',
             to: [destinationEmail],
