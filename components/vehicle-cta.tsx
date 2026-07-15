@@ -12,8 +12,9 @@ interface VehicleCTAProps {
 
 export function VehicleCTA({ car }: VehicleCTAProps) {
   const phoneNumber = "+51937385398"
-  const carName = `${car.brand} ${car.model} ${car.version}`
-  const message = `Hola, estoy interesado en el ${carName} con SKU ${car.sku}`
+  const carName = `${car.brand} ${car.model} ${car.version || ""}`.trim()
+  const vehicleUrl = `https://www.autosaldo.com/vehiculo/${car.id}`
+  const message = `Hola, estoy interesado en el ${carName}.\n\nEnlace del vehículo: ${vehicleUrl}`
   const whatsappUrl = `https://wa.me/${phoneNumber.replace(/\s/g, "")}?text=${encodeURIComponent(message)}`
 
   const handleShare = async () => {
@@ -72,8 +73,9 @@ export function VehicleCTA({ car }: VehicleCTAProps) {
 
 export function VehicleCTAMobile({ car }: VehicleCTAProps) {
   const phoneNumber = "+51937385398"
-  const carName = `${car.brand} ${car.model} ${car.version}`
-  const message = `Hola, estoy interesado en el ${carName} con SKU ${car.sku}`
+  const carName = `${car.brand} ${car.model} ${car.version || ""}`.trim()
+  const vehicleUrl = `https://www.autosaldo.com/vehiculo/${car.id}`
+  const message = `Hola, estoy interesado en el ${carName}.\n\nEnlace del vehículo: ${vehicleUrl}`
   const whatsappUrl = `https://wa.me/${phoneNumber.replace(/\s/g, "")}?text=${encodeURIComponent(message)}`
 
   return (
