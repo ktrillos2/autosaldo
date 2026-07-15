@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation"
 import Link from "next/link"
+import { Metadata } from "next"
 
 import { ImageGallery } from "@/components/image-gallery"
 import { VehicleSpecs } from "@/components/vehicle-specs"
@@ -21,6 +22,46 @@ import { Car } from "@/lib/data" // Importing Type IF it exists, otherwise defin
 
 interface VehiclePageProps {
   params: Promise<{ id: string }>
+}
+
+export async function generateMetadata({ params }: VehiclePageProps): Promise<Metadata> {
+  const { id } = await params
+  
+  const car = await client.fetch(groq`*[(_type == "auto" || _type == "autoUsuario") && _id == $id][0]{
+    brand,
+    model,
+    version,
+    year,
+    description,
+    message,
+    images
+  }`, { id }, { next: { revalidate: 0 } })
+
+  if (!car) {
+    return {
+      title: 'Vehículo no encontrado',
+    }
+  }
+
+  const title = `${car.brand} ${car.model} ${car.year} | Autosaldo`
+  const description = car.description || car.message || `Descubre este increíble ${car.brand} ${car.model} del año ${car.year} en Autosaldo.`
+  const imageUrl = car.images && car.images.length > 0 ? (typeof car.images[0] === 'string' ? car.images[0] : urlFor(car.images[0]).url()) : undefined;
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      images: imageUrl ? [{ url: imageUrl, width: 1200, height: 630, alt: title }] : [],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: imageUrl ? [imageUrl] : [],
+    },
+  }
 }
 
 export default async function VehiclePage({ params }: VehiclePageProps) {
