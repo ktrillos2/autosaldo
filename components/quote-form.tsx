@@ -22,7 +22,7 @@ interface VendeFormContent {
 export function QuoteForm({ content }: { content?: VendeFormContent }) {
     const [isLoading, setIsLoading] = useState(false)
     const [selectedBrand, setSelectedBrand] = useState("")
-    const brandsList = ["MAZDA", "SUBARU", "TOYOTA", "NISSAN", "SUZUKI", "CHEVROLET", "HYUNDAI", "KIA"]
+    const brandsList = ["MAZDA", "SUBARU", "TOYOTA", "NISSAN", "SUZUKI", "CHEVROLET", "HYUNDAI", "KIA", "MITSUBISHI", "HONDA"]
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()

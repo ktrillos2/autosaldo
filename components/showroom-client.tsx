@@ -46,9 +46,9 @@ export function ShowroomClient({ cars }: { cars: any[] }) {
 
         // Inventory Status Filter
         if (inventoryStatus === "disponibles") {
-            result = result.filter(car => !car.vendido)
+            result = result.filter(car => !car.sold)
         } else if (inventoryStatus === "vendidos") {
-            result = result.filter(car => car.vendido)
+            result = result.filter(car => car.sold)
         }
 
         // Search filter

@@ -1,16 +1,50 @@
 "use client"
 
+import React from "react"
 import { motion } from "framer-motion"
 import Image from "next/image"
 import { Car, Shield, FileText, Headphones, MapPin, Check } from "lucide-react"
+import { urlFor } from "@/sanity/lib/image"
 
-export function HeroSection() {
+interface HeroProps {
+  content?: {
+    overline?: string;
+    titlePart1?: string;
+    titlePart2?: string;
+    subtitlePart1?: string;
+    subtitlePart2?: string;
+    backgroundImage?: any;
+    features?: { _key: string; title: string; subtitle: string }[];
+    highlightBoxTitlePart1?: string;
+    highlightBoxTitlePart2?: string;
+    highlightBoxText?: string;
+    bottomBarBrand?: string;
+    bottomBarSlogan?: string;
+    bottomBarLocation?: string;
+    bottomBarWebsite?: string;
+  };
+  cars?: any[];
+}
+
+const defaultFeatures = [
+  { _key: '1', title: "Autos\nSeleccionados", subtitle: "Calidad verificada" },
+  { _key: '2', title: "Respaldo y\nConfianza", subtitle: "Compra segura" },
+  { _key: '3', title: "Papeles en\nRegla", subtitle: "Trámites sin complicaciones" },
+  { _key: '4', title: "Asesoría\nPersonalizada", subtitle: "Te acompañamos siempre" }
+];
+
+const featureIcons = [Car, Shield, FileText, Headphones];
+
+export function HeroSection({ content }: HeroProps) {
+  const bgImage = content?.backgroundImage ? urlFor(content.backgroundImage).url() : "/hero-bg.png";
+  const features = content?.features?.length ? content.features : defaultFeatures;
+
   return (
     <section className="relative min-h-screen bg-[#050505] overflow-hidden flex flex-col pt-32 pb-6">
       {/* Background Image & Overlays */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="/hero-bg.png"
+          src={bgImage}
           alt="Autosaldo Background"
           fill
           className="object-cover object-right opacity-40"
@@ -36,7 +70,7 @@ export function HeroSection() {
           >
             <div className="w-12 h-[2px] bg-[#d30826]" />
             <span className="text-[#d30826] font-extrabold text-sm tracking-wider uppercase">
-              Compra y venta de autos usados
+              {content?.overline || "Compra y venta de autos usados"}
             </span>
           </motion.div>
 
@@ -44,21 +78,20 @@ export function HeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-5xl md:text-6xl lg:text-7xl font-extrabold text-white mb-6 leading-[1.05] tracking-tight"
+            className="text-5xl md:text-6xl lg:text-7xl font-extrabold text-white mb-6 leading-[1.05] tracking-tight whitespace-pre-line"
           >
-            Tu próximo <br className="hidden md:block" />
-            auto te espera, <br />
-            <span className="text-[#d30826]">con respaldo <br className="hidden md:block" /> en cada paso.</span>
+            {content?.titlePart1 || "Tu próximo\nauto te espera,\n"}
+            <span className="text-[#d30826]">{content?.titlePart2 || "con respaldo\nen cada paso."}</span>
           </motion.h1>
 
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-lg md:text-xl lg:text-2xl text-gray-300 font-light"
+            className="text-lg md:text-xl lg:text-2xl text-gray-300 font-light whitespace-pre-line"
           >
-            Autos usados seleccionados, <br />
-            <span className="font-semibold text-white">confianza garantizada.</span>
+            {content?.subtitlePart1 || "Autos usados seleccionados,\n"}
+            <span className="font-semibold text-white">{content?.subtitlePart2 || "confianza garantizada."}</span>
           </motion.p>
         </div>
 
@@ -72,67 +105,31 @@ export function HeroSection() {
           {/* Left Features - unified bar */}
           <div className="flex-1 bg-[#111111]/80 backdrop-blur-xl border border-white/10 rounded-2xl p-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-8 md:gap-4">
             
-            {/* Item 1 */}
-            <div className="flex items-center gap-4 flex-1">
-              <div className="relative flex items-center justify-center shrink-0 w-10 h-10">
-                <Car className="w-8 h-8 text-white" strokeWidth={1.5} />
-                <div className="absolute -bottom-1 -right-1 bg-[#d30826] rounded-full w-4 h-4 flex items-center justify-center border-2 border-[#111111]">
-                  <Check className="w-2.5 h-2.5 text-white" strokeWidth={4} />
-                </div>
-              </div>
-              <div>
-                <h3 className="text-white font-bold text-[13px] md:text-sm leading-tight uppercase">Autos <br />Seleccionados</h3>
-                <p className="text-gray-400 text-[11px] md:text-xs mt-1">Calidad verificada</p>
-              </div>
-            </div>
-
-            {/* Separator */}
-            <div className="hidden md:block w-px h-10 bg-white/10" />
-
-            {/* Item 2 */}
-            <div className="flex items-center gap-4 flex-1">
-              <div className="relative flex items-center justify-center shrink-0 w-10 h-10">
-                <Shield className="w-8 h-8 text-white" strokeWidth={1.5} />
-                <div className="absolute -bottom-1 -right-1 bg-[#d30826] rounded-full w-4 h-4 flex items-center justify-center border-2 border-[#111111]">
-                  <Check className="w-2.5 h-2.5 text-white" strokeWidth={4} />
-                </div>
-              </div>
-              <div>
-                <h3 className="text-white font-bold text-[13px] md:text-sm leading-tight uppercase">Respaldo y <br />Confianza</h3>
-                <p className="text-gray-400 text-[11px] md:text-xs mt-1">Compra segura</p>
-              </div>
-            </div>
-
-            {/* Separator */}
-            <div className="hidden md:block w-px h-10 bg-white/10" />
-
-            {/* Item 3 */}
-            <div className="flex items-center gap-4 flex-1">
-              <div className="relative flex items-center justify-center shrink-0 w-10 h-10">
-                <FileText className="w-8 h-8 text-white" strokeWidth={1.5} />
-                <div className="absolute -bottom-1 -right-1 bg-[#d30826] rounded-sm w-4 h-4 flex items-center justify-center border-2 border-[#111111]">
-                  <Check className="w-2.5 h-2.5 text-white" strokeWidth={4} />
-                </div>
-              </div>
-              <div>
-                <h3 className="text-white font-bold text-[13px] md:text-sm leading-tight uppercase">Papeles en <br />Regla</h3>
-                <p className="text-gray-400 text-[11px] md:text-xs mt-1">Trámites sin complicaciones</p>
-              </div>
-            </div>
-
-            {/* Separator */}
-            <div className="hidden md:block w-px h-10 bg-white/10" />
-
-            {/* Item 4 */}
-            <div className="flex items-center gap-4 flex-1">
-              <div className="relative flex items-center justify-center shrink-0 w-10 h-10">
-                <Headphones className="w-8 h-8 text-white" strokeWidth={1.5} />
-              </div>
-              <div>
-                <h3 className="text-white font-bold text-[13px] md:text-sm leading-tight uppercase">Asesoría <br />Personalizada</h3>
-                <p className="text-gray-400 text-[11px] md:text-xs mt-1">Te acompañamos siempre</p>
-              </div>
-            </div>
+            {features.map((feature, index) => {
+              const Icon = featureIcons[index % featureIcons.length];
+              const isLast = index === features.length - 1;
+              const hasCheck = index !== 3; // Original design had checks on first 3, not on 4th (Headphones)
+              
+              return (
+                <React.Fragment key={feature._key}>
+                  <div className="flex items-center gap-4 flex-1">
+                    <div className="relative flex items-center justify-center shrink-0 w-10 h-10">
+                      <Icon className="w-8 h-8 text-white" strokeWidth={1.5} />
+                      {hasCheck && (
+                        <div className="absolute -bottom-1 -right-1 bg-[#d30826] rounded-full w-4 h-4 flex items-center justify-center border-2 border-[#111111]">
+                          <Check className="w-2.5 h-2.5 text-white" strokeWidth={4} />
+                        </div>
+                      )}
+                    </div>
+                    <div>
+                      <h3 className="text-white font-bold text-[13px] md:text-sm leading-tight uppercase whitespace-pre-line">{feature.title}</h3>
+                      <p className="text-gray-400 text-[11px] md:text-xs mt-1">{feature.subtitle}</p>
+                    </div>
+                  </div>
+                  {!isLast && <div className="hidden md:block w-px h-10 bg-white/10" />}
+                </React.Fragment>
+              );
+            })}
 
           </div>
 
@@ -145,12 +142,12 @@ export function HeroSection() {
               </div>
             </div>
             <div>
-              <h3 className="text-white font-bold text-[13px] md:text-sm leading-tight uppercase mb-1.5">
-                Tu compra segura,<br />
-                <span className="text-[#d30826]">nuestra promesa.</span>
+              <h3 className="text-white font-bold text-[13px] md:text-sm leading-tight uppercase mb-1.5 whitespace-pre-line">
+                {content?.highlightBoxTitlePart1 || "Tu compra segura,\n"}
+                <span className="text-[#d30826]">{content?.highlightBoxTitlePart2 || "nuestra promesa."}</span>
               </h3>
-              <p className="text-gray-400 text-[11px] md:text-xs leading-relaxed">
-                Transparencia, confianza y respaldo <br className="hidden md:block" /> en cada auto.
+              <p className="text-gray-400 text-[11px] md:text-xs leading-relaxed whitespace-pre-line">
+                {content?.highlightBoxText || "Transparencia, confianza y respaldo\nen cada auto."}
               </p>
             </div>
           </div>
@@ -164,17 +161,17 @@ export function HeroSection() {
           className="flex flex-col md:flex-row items-center justify-between text-[10px] md:text-xs text-gray-500 uppercase tracking-widest pt-5 border-t border-white/10 mt-auto"
         >
           <div className="flex flex-col md:flex-row items-center gap-2 mb-4 md:mb-0 text-center md:text-left">
-            <span className="font-black text-white italic">AUTOSALDO</span>
+            <span className="font-black text-white italic">{content?.bottomBarBrand || "AUTOSALDO"}</span>
             <span className="hidden md:block w-px h-3 bg-gray-600 mx-1" />
-            <span>Más que autos, confianza que te lleva lejos.</span>
+            <span>{content?.bottomBarSlogan || "Más que autos, confianza que te lleva lejos."}</span>
           </div>
           <div className="flex items-center gap-3">
             <div className="flex items-center gap-1.5">
               <MapPin className="w-3.5 h-3.5 text-gray-400" />
-              <span>Lima, Perú</span>
+              <span>{content?.bottomBarLocation || "Lima, Perú"}</span>
             </div>
             <span className="w-px h-3 bg-gray-600" />
-            <span className="lowercase">www.autosaldo.pe</span>
+            <span className="lowercase">{content?.bottomBarWebsite || "www.autosaldo.com"}</span>
           </div>
         </motion.div>
       </div>
