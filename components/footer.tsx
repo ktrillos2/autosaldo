@@ -23,7 +23,7 @@ export function Footer({ content }: { content?: FooterContent }) {
   const companyDescription = content?.companyDescription || "Tu concesionario de confianza. Autos seminuevos certificados con garantía y el mejor servicio."
   const address = content?.address || "Av. Javier Prado Este 4200, Lima, Perú"
   const email = content?.email || "info@Autosaldo.pe"
-  const phoneNumber = content?.phoneNumber || "+51 937 385 398"
+  const phoneNumber = content?.phoneNumber || "+51 973 325 135"
   const copyrightText = content?.copyrightText || "Autosaldo. Todos los derechos reservados."
   const socialLinks = content?.socialLinks || [
     { platform: "Instagram", url: "https://instagram.com" },

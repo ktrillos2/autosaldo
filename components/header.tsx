@@ -179,7 +179,7 @@ export function Header({ content }: { content?: HeaderContent }) {
               >
                 <p className="text-gray-400 text-sm mb-3">Contáctanos</p>
                 <Link href="tel:+51937385398" className="text-2xl font-semibold text-[#002559]">
-                  +51 937 385 398
+                  +51 973 325 135
                 </Link>
               </motion.div>
             </motion.nav>

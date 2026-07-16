@@ -27,7 +27,7 @@ export const footer = defineType({
             name: 'phoneNumber',
             title: 'Número de Teléfono',
             type: 'string',
-            initialValue: '+51 937 385 398',
+            initialValue: '+51 973 325 135',
         }),
         defineField({
             name: 'socialLinks',
