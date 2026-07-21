@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { User, Phone, Mail, Car, MapPin, Calendar, Gauge, CreditCard, Fuel, MessageSquare } from "lucide-react"
+import { User, Phone, Mail, Car, MapPin, Calendar, Gauge, CreditCard, Fuel, MessageSquare, Clock, CircleDollarSign } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
@@ -61,6 +61,8 @@ export function QuoteForm({ content }: { content?: VendeFormContent }) {
 - *Kilometraje:* ${data.Kilometraje || "No especificado"}
 - *Combustible:* ${data.Combustible || "No especificado"}
 - *¿Deuda?:* ${data.Deuda || "No especificado"}
+- *Tiempo de venta:* ${data.TiempoVenta || "No especificado"}
+- *Precio deseado:* ${data.PrecioDeseado || "No especificado"}
 - *Mensaje:* ${data.Mensaje || "Sin mensaje"}`
 
                 const whatsappUrl = `https://wa.me/51937385398?text=${encodeURIComponent(text)}`
@@ -256,6 +258,33 @@ export function QuoteForm({ content }: { content?: VendeFormContent }) {
                                                 <SelectItem value="si">Sí</SelectItem>
                                             </SelectContent>
                                         </Select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                {/* Time to sell */}
+                                <div className="space-y-2">
+                                    <div className="relative">
+                                        <Clock className="absolute left-3 top-3 h-5 w-5 text-[#d30826] z-10" />
+                                        <Select name="TiempoVenta">
+                                            <SelectTrigger className="pl-10 h-12 bg-gray-50 border-gray-200 text-left truncate">
+                                                <SelectValue placeholder="¿En cuánto tiempo vender?" />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                <SelectItem value="En esta semana">En esta semana</SelectItem>
+                                                <SelectItem value="En este mes">En este mes</SelectItem>
+                                                <SelectItem value="Quiero venderlo ahora">Quiero venderlo ahora</SelectItem>
+                                            </SelectContent>
+                                        </Select>
+                                    </div>
+                                </div>
+
+                                {/* Desired Price */}
+                                <div className="space-y-2">
+                                    <div className="relative">
+                                        <CircleDollarSign className="absolute left-3 top-3 h-5 w-5 text-[#d30826]" />
+                                        <Input name="PrecioDeseado" placeholder="Precio al que quieres vender" className="pl-10 h-12 bg-gray-50 border-gray-200 focus:ring-[#002559]" />
                                     </div>
                                 </div>
                             </div>

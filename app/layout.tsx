@@ -2,6 +2,7 @@ import type React from "react"
 import type { Metadata } from "next"
 import { Poppins } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
+import Script from "next/script"
 import { Header } from "@/components/header"
 import "./globals.css"
 
@@ -64,6 +65,17 @@ export default async function RootLayout({
   return (
     <html lang="es">
       <body className={`${poppins.className} antialiased`}>
+        {/* Google tag (gtag.js) */}
+        <Script async src="https://www.googletagmanager.com/gtag/js?id=AW-18338260686" />
+        <Script id="google-analytics">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'AW-18338260686');
+          `}
+        </Script>
         <Header content={data.header} />
         {children}
         <ConditionalFooter content={data.footer} />

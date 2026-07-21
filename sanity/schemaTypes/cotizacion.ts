@@ -59,6 +59,16 @@ export const cotizacion = {
             type: 'string',
         },
         {
+            name: 'tiempoVenta',
+            title: '¿En cuanto tiempo quieres vender tu vehiculo?',
+            type: 'string',
+        },
+        {
+            name: 'precioDeseado',
+            title: 'Precio que quieres vender tu vehículo',
+            type: 'string',
+        },
+        {
             name: 'mensaje',
             title: 'Mensaje',
             type: 'text',

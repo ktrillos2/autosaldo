@@ -32,6 +32,8 @@ export async function POST(req: Request) {
                 kilometraje: data.Kilometraje || '',
                 combustible: data.Combustible || '',
                 deuda: data.Deuda || '',
+                tiempoVenta: data.TiempoVenta || '',
+                precioDeseado: data.PrecioDeseado || '',
                 mensaje: data.Mensaje || '',
                 status: 'nuevo'
             })
