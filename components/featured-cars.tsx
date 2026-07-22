@@ -96,6 +96,11 @@ export function FeaturedCars({ content, cars = [] }: { content?: FeaturedContent
                       <Badge className="absolute top-4 left-4 bg-white/90 text-foreground backdrop-blur-sm font-medium">
                         {car.category}
                       </Badge>
+                      {car.sold && (
+                        <Badge className="absolute top-4 right-4 bg-[#d30826] text-white hover:bg-[#d30826]/90 font-bold uppercase">
+                          Vendido
+                        </Badge>
+                      )}
                     </div>
 
                     {/* Contenido */}

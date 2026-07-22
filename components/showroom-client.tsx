@@ -218,7 +218,7 @@ export function ShowroomClient({ cars }: { cars: any[] }) {
                             ) : (
                                 <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-center py-16">
                                     <p className="text-lg text-muted-foreground mb-4">
-                                        No se encontraron vehículos con los filtros seleccionados.
+                                        No hay vehículos disponibles.
                                     </p>
                                     <button onClick={() => setFilters(initialFiltersState)} className="text-primary hover:underline">
                                         Limpiar filtros
