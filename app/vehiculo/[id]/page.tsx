@@ -122,6 +122,9 @@ export default async function VehiclePage({ params }: VehiclePageProps) {
                 <div className="flex items-center gap-2 mb-2">
                   <Badge variant="secondary">{car.category}</Badge>
                   <Badge variant="outline">{car.year}</Badge>
+                  {car.sold && (
+                    <Badge className="bg-[#d30826] text-white hover:bg-[#d30826]/90 font-bold uppercase">Vendido</Badge>
+                  )}
                 </div>
                 <h1 className="font-serif text-2xl font-bold text-foreground">
                   {car.brand} {car.model}
@@ -169,6 +172,9 @@ export default async function VehiclePage({ params }: VehiclePageProps) {
                 <div className="flex items-center gap-2 mb-2">
                   <Badge variant="secondary">{car.category}</Badge>
                   <Badge variant="outline">{car.year}</Badge>
+                  {car.sold && (
+                    <Badge className="bg-[#d30826] text-white hover:bg-[#d30826]/90 font-bold uppercase">Vendido</Badge>
+                  )}
                 </div>
                 <h1 className="font-serif text-3xl font-bold text-foreground">
                   {car.brand} {car.model}

@@ -42,19 +42,27 @@ export function VehicleCTA({ car }: VehicleCTAProps) {
       </div>
 
       <div className="space-y-3">
-        <Button asChild size="lg" className="w-full">
-          <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
-            <MessageCircle className="w-5 h-5 mr-2" />
-            Contactar por WhatsApp
-          </a>
-        </Button>
+        {car.sold ? (
+          <Button disabled size="lg" className="w-full font-bold bg-[#d30826] text-white opacity-100 cursor-not-allowed border-[#d30826]">
+            Vehículo Vendido
+          </Button>
+        ) : (
+          <>
+            <Button asChild size="lg" className="w-full">
+              <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
+                <MessageCircle className="w-5 h-5 mr-2" />
+                Contactar por WhatsApp
+              </a>
+            </Button>
 
-        <Button variant="outline" size="lg" className="w-full bg-transparent" asChild>
-          <a href={`tel:${phoneNumber}`}>
-            <Phone className="w-5 h-5 mr-2" />
-            Llamar ahora
-          </a>
-        </Button>
+            <Button variant="outline" size="lg" className="w-full bg-transparent" asChild>
+              <a href={`tel:${phoneNumber}`}>
+                <Phone className="w-5 h-5 mr-2" />
+                Llamar ahora
+              </a>
+            </Button>
+          </>
+        )}
 
         <Button variant="ghost" size="lg" className="w-full" onClick={handleShare}>
           <Share2 className="w-5 h-5 mr-2" />
@@ -89,12 +97,18 @@ export function VehicleCTAMobile({ car }: VehicleCTAProps) {
           <p className="text-sm text-muted-foreground">Precio</p>
           <p className="font-bold text-xl text-primary">{formatPrice(car.price)}</p>
         </div>
-        <Button asChild size="lg">
-          <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
-            <MessageCircle className="w-5 h-5 mr-2" />
-            WhatsApp
-          </a>
-        </Button>
+        {car.sold ? (
+          <Button disabled size="lg" className="font-bold bg-[#d30826] text-white opacity-100 cursor-not-allowed border-[#d30826]">
+            Vendido
+          </Button>
+        ) : (
+          <Button asChild size="lg">
+            <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
+              <MessageCircle className="w-5 h-5 mr-2" />
+              WhatsApp
+            </a>
+          </Button>
+        )}
       </div>
     </motion.div>
   )
